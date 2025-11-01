@@ -11,7 +11,7 @@ import LoginPage from './components/Pages/Login.jsx'
 import EditPost from './components/Pages/EditPost.jsx'
 import AllPost from './components/Pages/AllPost.jsx'
 import AddPost from './components/Pages/AddPost.jsx'
-
+// import EditPost from './components/Pages/EditPost.jsx'
 import Post from './components/Pages/Post.jsx'
 import { BrowserRouter, createBrowserRouter,RouterProvider } from 'react-router-dom'
 const router = createBrowserRouter([
