@@ -33,7 +33,7 @@ export class Service {
       throw error;
     }
   }
-  async updatePost(rowId, { title, content, featuredImage }) {
+  async updatePost(rowId, { title, content, featuredImg }) {
     try {
       const result = await this.tables.updateRow({
         databaseId: conf.appwriteDatabaseId,
@@ -42,7 +42,7 @@ export class Service {
         data: {
           title,
           content,
-          featuredImage,
+          featuredImg,
         },
       });
      
