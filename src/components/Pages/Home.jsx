@@ -10,6 +10,7 @@ function Home() {
     service.getPosts().then((posts) => (posts ? setPosts(posts.rows) : []));
   }, []);
   
+  
   if (!userActive.activeStatus) {
     return (
       <div className="w-full py-8 mt-4 text-center">
@@ -40,11 +41,11 @@ function Home() {
     );
   } else if (userActive.activeStatus && posts.length > 0) {
     return (
-      <div className="mt-2 mb-2">
+      <div className="m-2">
         <Container>
-          <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4">
+          <div className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 ">
             {posts.map((post) => (
-              <div key={post.$id} className="mb-4 break-inside-avoid ">
+              <div key={post.$id} className="mb-4 break-inside-avoid transition-transform hover:scale-[1.02] ">
                 <PostCard {...post} />
               </div>
             ))}

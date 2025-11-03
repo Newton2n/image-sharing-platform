@@ -36,6 +36,7 @@ export class AuthService {
         email :email,
         password :password
       });
+  
       return session;
     } catch (error) {
       console.log("log in failed ",error)
@@ -44,6 +45,7 @@ export class AuthService {
   async getCurrentUser() {
     try {
       const user = await this.account.get();
+      
       return user;
     } catch (err) {
      console.log("user is not available",err)

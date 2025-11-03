@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Logo, Container, LogoutBtn } from "../index";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.activeStatus);
@@ -36,15 +36,15 @@ function Header() {
   ];
 
   return (
-    <header className="py-3 shadow bg-gray-500">
+    <header className="py-3 px-2 shadow bg-white">
       <Container>
-        <nav className="flex">
-          <div className="mr-4">
+        <nav className="flex justify-center items-center">
+          <div className="mr-4 ml-2">
             <Link to="/">
-              <Logo width="70px" />
+              <Logo/>
             </Link>
           </div>
-          <ul className="flex ml-auto">
+          <ul className="flex ml-auto items-center justify-center">
             {navItems.map((item) =>
               item.active ? (
                 <li key={item.name}>
@@ -52,8 +52,8 @@ function Header() {
                     to={item.slug}
                     className={({ isActive }) =>
                       isActive
-                        ? "inline-bock px-6 py-2 text-white font-semibold rounded-2xl cursor-pointer "
-                        : "inline-bock px-6 py-2  hover:bg-blue-100 rounded-full cursor-pointer"
+                        ? "inline-bock px-6 py-2 text-red-500  rounded-2xl cursor-pointer  "
+                        : "inline-bock px-6 py-2   rounded-full cursor-pointer"
                     }
                   >
                     {item.name}
@@ -62,7 +62,7 @@ function Header() {
               ) : null
             )}
             {
-              <li>
+              <li className="ml-2">
                 <LogoutBtn />
               </li>
             }{" "}
