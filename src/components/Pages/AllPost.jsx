@@ -29,11 +29,11 @@ function AllPost() {
        )
 }else{
   return (
-    <div className="mt-2 mb-2">
+    <div className="m-2 ">
       <Container>
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4">
+        <div className="columns-2 sm:columns-[200px] md:columns-[200px]  ">
           {posts &&posts.map((post) => (
-            <div key={post.$id} className="mb-4 break-inside-avoid ">
+            <div key={post.$id} className="mb-4 break-inside-avoid transition-transform hover:scale-[1.02]">
               <PostCard {...post} />
             </div>
           ))}
