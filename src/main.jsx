@@ -9,11 +9,12 @@ import Home from './components/Pages/Home.jsx'
 import SignupPage from './components/Pages/Signup.jsx'
 import LoginPage from './components/Pages/Login.jsx'
 import EditPost from './components/Pages/EditPost.jsx'
-import AllPost from './components/Pages/AllPost.jsx'
+
 import AddPost from './components/Pages/AddPost.jsx'
-// import EditPost from './components/Pages/EditPost.jsx'
+import Profile from './components/Pages/Profile.jsx'
 import Post from './components/Pages/Post.jsx'
-import { BrowserRouter, createBrowserRouter,RouterProvider } from 'react-router-dom'
+import { createBrowserRouter,RouterProvider } from 'react-router-dom'
+
 const router = createBrowserRouter([
   {
     path :"/",
@@ -22,7 +23,8 @@ const router = createBrowserRouter([
       {path : "", element : <Home/>},
       {path : "/login", element :<AuthLayout authentication={false}><LoginPage/></AuthLayout>},
       {path : "/signup", element :<AuthLayout authentication={false}><SignupPage/></AuthLayout>},
-      {path : "/all-post", element :<AuthLayout authentication={true} ><AllPost/></AuthLayout>},
+      {path : "/profile/:userId", element :<AuthLayout authentication={true} ><Profile/></AuthLayout>},
+      {path : "/add-post", element :<AuthLayout authentication ={true} > <AddPost/></AuthLayout>},
       {path : "/add-post", element :<AuthLayout authentication ={true} > <AddPost/></AuthLayout>},
       {path : "/edit-post/:postId", element :<AuthLayout authentication ={true} >  <EditPost/></AuthLayout>},
       {path : "/post/:postId", element :<AuthLayout authentication={true}> <Post/></AuthLayout>},
