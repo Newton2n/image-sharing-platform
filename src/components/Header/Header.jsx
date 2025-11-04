@@ -1,11 +1,12 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Logo, Container, LogoutBtn } from "../index";
+import { Logo, Container,LogoutBtn } from "../index";
 import { useSelector } from "react-redux";
-
+import menuicon from "../../icons/menuicon.png"
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.activeStatus);
+  const userData = useSelector((state)=>state.auth.userData)
 
   const navItems = [
     {
@@ -23,14 +24,15 @@ function Header() {
       slug: "/signup",
       active: !authStatus,
     },
-    {
-      name: "All Post",
-      slug: "/all-post",
-      active: authStatus,
-    },
+   
     {
       name: "Add Post",
       slug: "/add-post",
+      active: authStatus,
+    },
+    {
+      name: "Profile",
+      slug: `/profile/${userData?.$id}`,
       active: authStatus,
     },
   ];
@@ -45,9 +47,14 @@ function Header() {
             </Link>
           </div>
           <ul className="flex ml-auto items-center justify-center">
+           {/* <li className="sm:hidden cursor-pointer" onClick={()=>menuPage()}>
+            <button>
+             <img src={menuicon} alt="menu" />
+            </button>
+           </li> */}
             {navItems.map((item) =>
               item.active ? (
-                <li key={item.name}>
+                <li key={item.name} className="hover:bg-gray-50 rounded-2xl">
                   <NavLink
                     to={item.slug}
                     className={({ isActive }) =>
@@ -63,7 +70,7 @@ function Header() {
             )}
             {
               <li className="ml-2">
-                <LogoutBtn />
+                <LogoutBtn/>
               </li>
             }{" "}
             {/*this code mean if authStatus is true  then the && next part will work or nope*/}

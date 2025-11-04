@@ -1,6 +1,6 @@
 import Container from "./Container/Container";
 import Footer from "./Footer/Footer";
-import Header from './Header/Header';
+import Header from "./Header/Header";
 import Logo from "./Logo";
 import LogoutBtn from "./Header/LogoutBtn";
 import Button from "./Button";
@@ -12,22 +12,24 @@ import Signup from "./Signup";
 import Protected from "./AuthLayout";
 import RTE from "./Rte";
 // import PostForm from "./PostForm/postForm";
-import PostForm from "./PostForm/PostForm"
-import AuthLayout from "./AuthLayout"
+import PostForm from "./PostForm/PostForm";
+import AuthLayout from "./AuthLayout";
+import DownloadBtn from "./DownloadBtn";
 export {
-    Container,
-    Header,
-    Footer,
-    Logo,
-    LogoutBtn,
-    Button,
-    Input,
-    Select,
-    PostCard,
-    Login,
-    Signup,
-    Protected,
-    RTE,
-    PostForm,
-    AuthLayout
-}
+  Container,
+  Header,
+  Footer,
+  Logo,
+  LogoutBtn,
+  Button,
+  Input,
+  Select,
+  PostCard,
+  Login,
+  Signup,
+  Protected,
+  RTE,
+  PostForm,
+  AuthLayout,
+  DownloadBtn,
+};

@@ -1,5 +1,6 @@
-import { Client, ID, TablesDB, Databases, Storage } from "appwrite";
+import { Client, ID, TablesDB, Databases, Storage, Query } from "appwrite";
 import conf from "../conf/conf";
+import { useLinkClickHandler } from "react-router-dom";
 
 export class Service {
   client = new Client();
@@ -12,8 +13,7 @@ export class Service {
     this.tables = new TablesDB(this.client);
     this.storage = new Storage(this.client);
   }
-  async createPost({ title, content, featuredImg, userId,slug }) {
-  
+  async createPost({ title, content, featuredImg, userId, slug }) {
     try {
       const post = await this.tables.createRow({
         databaseId: conf.appwriteDatabaseId,
@@ -24,11 +24,10 @@ export class Service {
           content,
           userId,
           featuredImg,
-          slug
+          slug,
         },
       });
-      return post
-      
+      return post;
     } catch (error) {
       throw error;
     }
@@ -45,10 +44,10 @@ export class Service {
           featuredImg,
         },
       });
-     
-      return result
+
+      return result;
     } catch (error) {
-      console.log("error occurred in update post ",error)
+      console.log("error occurred in update post ", error);
     }
   }
   async deletePost(rowId) {
@@ -58,8 +57,7 @@ export class Service {
         tableId: conf.appwriteTableId,
         rowId: rowId,
       });
-   return result
-      
+      return result;
     } catch (error) {
       console.log(error);
     }
@@ -71,8 +69,8 @@ export class Service {
         tableId: conf.appwriteTableId,
         rowId: rowId,
       });
-      
-      return result
+
+      return result;
     } catch (error) {
       console.log(error);
     }
@@ -83,10 +81,30 @@ export class Service {
         databaseId: conf.appwriteDatabaseId,
         tableId: conf.appwriteTableId,
       });
-      
+
       return result;
     } catch (error) {
-      console.log("error occurred in get all post :",error)
+      console.log("error occurred in get all post :", error);
+    }
+  }
+  async getPostsQuery(id) {
+    const columnName = "userId";
+    console.log("DEBUG: Querying posts for userId:", id);
+    console.log("DEBUG: Querying on column:", columnName);
+    try {
+      const result = await this.tables.listRows({
+        databaseId: conf.appwriteDatabaseId,
+        tableId: conf.appwriteTableId,
+        queries: [
+          // Use Query.equal to filter rows where the 'userId' column
+          // matches the provided 'id'.
+          Query.equal(columnName, [id]),
+        ],
+      });
+
+      return result;
+    } catch (error) {
+      console.log("error occurred in get all post :", error);
     }
   }
   async fileUpload(file) {
@@ -96,7 +114,7 @@ export class Service {
         fileId: ID.unique(),
         file: file,
       });
-    
+
       return promise;
     } catch (error) {
       console.log(error);
@@ -108,15 +126,14 @@ export class Service {
         bucketId: conf.appwriteBucketId,
         fileId: fileId,
       });
-      
+
       return result;
     } catch (error) {
-      console.log("error occurred in delete file ",error);
+      console.log("error occurred in delete file ", error);
     }
   }
 
-  //file Preview is for pain appwrite version only free one is file view 
-
+  //file Preview is for pain appwrite version only free one is file view
 
   // async filePreview(fileId) {
   //   try {
@@ -124,13 +141,12 @@ export class Service {
   //       bucketId: conf.appwriteBucketId,
   //       fileId: fileId,
   //     });
-     
+
   //     return result;
   //   } catch (error) {
   //     console.log(error);
   //   }
-  // }; 
-
+  // };
 
   async fileView(fileId) {
     try {
@@ -138,12 +154,27 @@ export class Service {
         bucketId: conf.appwriteBucketId,
         fileId: fileId,
       });
-     
+
       return result;
     } catch (error) {
       console.log(error);
     }
-  };
+  }
+  async fileDownload(fileId) {
+    try {
+      const result = this.storage.getFileDownload({
+        bucketId: conf.appwriteBucketId,
+        fileId: fileId,
+      });
+
+     if(result){ const link = document.createElement("a");
+      link.href =result
+      link.download =""
+      link.click()}
+    } catch (err) {
+      console.log("error in download file", err);
+    }
+  }
 }
 const service = new Service();
 export default service;

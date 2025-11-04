@@ -9,11 +9,11 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const checkUser = async () => {
-      const userData =await authservice.getCurrentUser();
+      const userData = await authservice.getCurrentUser();
       if (userData) dispatch(login(userData));
       else dispatch(logout());
     };
-    checkUser()
+    checkUser();
   }, [dispatch]);
   return (
     <>
