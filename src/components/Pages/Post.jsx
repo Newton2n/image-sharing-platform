@@ -36,7 +36,7 @@ function Post() {
   if (post) {
     return (
       <Container>
-          <div className="w-full py-10 px-10 flex max-sm:flex-col">
+        <div className="w-full py-10 px-10 flex max-sm:flex-col">
           <div className="relative w-full md:w-2/3 mb-6 md:mb-0 mr-8">
             <img
               src={imgUrl}
@@ -67,17 +67,16 @@ function Post() {
           <div className="w-1/3 mb-6 ">
             <div className="flex flex-col ">
               <span className="font-extrabold  text-gray-300">Title</span>
-            <h1 className="text-2xl  ">{post.title}</h1>
-            <p className=" bg-gray-400 my-3 w-full h-[1.5px]"></p>
+              <h1 className="text-2xl  ">{post.title}</h1>
+              <p className=" bg-gray-400 my-3 w-full h-[1.5px]"></p>
             </div>
             <div className="text-xl">
               <span className="font-bold  text-gray-300">Description</span>
-               {parse(post?.content)}
+              {parse(post?.content)}
             </div>
           </div>
-         
-      </div>
-        </Container>
+        </div>
+      </Container>
     );
   } else {
     null;
@@ -85,30 +84,3 @@ function Post() {
 }
 
 export default Post;
-//  <div className="relative w-full md:w-1/2 mb-6 md:mb-0">
-//             <img
-//               src={imgUrl}
-//               alt={post.title}
-//               className="rounded-xl w-full h-auto object-cover border"
-//             />
-
-//             {/* Edit/Delete Buttons - Absolute positioning for flexibility */}
-//             {isAuthor && (
-//               <div className="absolute top-4 right-4 flex space-x-2 p-2 bg-white bg-opacity-70 rounded-lg shadow-md">
-//                 <Button
-//                   className="px-3 py-1 text-sm"
-//                   bgColor="bg-green-500 hover:bg-green-600 transition"
-//                   onClick={editPostBtn}
-//                 >
-//                   Edit
-//                 </Button>
-//                 <Button
-//                   className="px-3 py-1 text-sm"
-//                   bgColor="bg-red-500 hover:bg-red-600 transition"
-//                   onClick={deletePost}
-//                 >
-//                   Delete
-//                 </Button>
-//               </div>
-//             )}
-//           </div>
