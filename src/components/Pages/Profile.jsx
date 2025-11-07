@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import service from "../../../appwrite/config";
-import { Container, PostCard } from "../index";
+import { Container, PostCard ,SkeletonEffect} from "../index";
 function Profile() {
   const [userData, setUserData] = useState();
   const [userPost, setUserPost] = useState();
+  const [loading,setLoading] =useState(true)
   const getUserData = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
     if (getUserData) setUserData(getUserData);
     service
       .getPostsQuery(getUserData?.$id)
-      .then((posts) => setUserPost(posts?.rows));
+      .then((posts) => setUserPost(posts?.rows))
+      .catch((err)=> console.log("error i getting post",err))
+      .finally(()=>setLoading(false))
   }, [getUserData]);
 
   return (
@@ -84,7 +87,7 @@ function Profile() {
           </div>
         </div>
 
-        <div className="p-4 sm:p-6 md:p-8">
+       {loading ?<SkeletonEffect count={10}/>:( <div className="p-4 sm:p-6 md:p-8">
           <div className="m-2">
             <Container>
               <div className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 ">
@@ -99,7 +102,7 @@ function Profile() {
               </div>
             </Container>
           </div>
-        </div>
+        </div>)}
       </div>
     </div>
   );

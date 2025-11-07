@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Container, PostCard } from "../index";
+import { Container, PostCard ,SkeletonEffect} from "../index";
 import service from "../../../appwrite/config";
 import { useSelector } from "react-redux";
 
 function Home() {
   const [posts, setPosts] = useState([]);
-
+  const [loading,setLoading] = useState(true)
   const userActive = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -13,10 +13,10 @@ function Home() {
       service.getPosts()
       .then((posts) => (posts ? setPosts(posts.rows) : []))
       .catch((err)=>console.log("error in loading post",err))
-      
+       .finally(()=> setLoading(false))
     }
   }, []);
-
+  if(loading) return <SkeletonEffect count={22}/>
   if (!userActive.activeStatus) {
     return (
       <div className="w-full py-8 mt-4 text-center">

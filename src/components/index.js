@@ -16,6 +16,7 @@ import PostForm from "./PostForm/PostForm";
 import AuthLayout from "./AuthLayout";
 import DownloadBtn from "./DownloadBtn";
 import BottomNav from "./BottomNav/BottomNav";
+import SkeletonEffect from "./SkeletonEffect";
 export {
   Container,
   Header,
@@ -33,5 +34,6 @@ export {
   PostForm,
   AuthLayout,
   DownloadBtn,
-  BottomNav
+  BottomNav,
+  SkeletonEffect
 };
