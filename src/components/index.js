@@ -17,6 +17,7 @@ import AuthLayout from "./AuthLayout";
 import DownloadBtn from "./DownloadBtn";
 import BottomNav from "./BottomNav/BottomNav";
 import SkeletonEffect from "./SkeletonEffect";
+import ThemeToggler from "./ThemeToggler";
 export {
   Container,
   Header,
@@ -35,5 +36,6 @@ export {
   AuthLayout,
   DownloadBtn,
   BottomNav,
-  SkeletonEffect
+  SkeletonEffect,
+  ThemeToggler,
 };

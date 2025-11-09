@@ -36,17 +36,17 @@ function Login() {
 
   };
   return (
-    <div className="flex items-center justify-center w-full ">
-      <div className="mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10 ">
+    <div className="flex items-center justify-center w-full dark:bg-black">
+      <div className="mx-auto w-[90%] my-2 max-w-lg bg-gray-100 dark:bg-black rounded-xl p-10 border border-black/10 dark:border-white">
         <div className="mb-2 flex justify-center ">
           <span className=" w-full max-w-[100px] ">
             <Logo  />
           </span>
         </div>
-        <h2 className="text-center text-2xl font-bold leading-tight">
+        <h2 className="text-center text-2xl font-bold leading-tight dark:text-gray-400">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-center text-base text-black/60">
+        <p className="mt-2 text-center text-base text-black/60 dark:text-gray-400">
           Don&apos;t have any account?&nbsp;
           <Link
             to="/signup"
@@ -58,7 +58,7 @@ function Login() {
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
         <form onSubmit={handleSubmit(login)} className='mt-8'>
               <div className='space-y-5'>
-                <Input label={'email'} type={'email'} placeholder ={'enter you email'} {
+                <Input label={'Email'} type={'email'} placeholder ={'Enter you email'} {
                     ...register('email',{
                         required :true,
                         validate : {
@@ -70,8 +70,8 @@ function Login() {
                 }/>
                  {errors.email && <p className="text-red-600" role="alert">{errors.email.message}</p>}
               </div>
-              <div className='space-y-5'>
-                <Input label={'password'} type={'password'} placeholder ={'enter you password'} {
+              <div className='space-y-5 my-3'>
+                <Input label={'Password'} type={'password'} placeholder ={'Enter you password'} {
                     ...register('password',{
                         required :true,
                         validate : {

@@ -85,7 +85,7 @@ export default function PostForm({ post }) {
   return (
     <>
     <Container>
-      <form className=" flex pr-4 pl-4 flex-col sm:w-full md:w-3/4 mx-auto"  onSubmit={handleSubmit(submit)}>
+      <form className=" flex pr-4 pl-4 flex-col sm:w-full md:w-3/4 mx-auto dark:bg-black"  onSubmit={handleSubmit(submit)}>
         <div className="left ">
           <Input
             label={"Title"}
@@ -98,7 +98,7 @@ export default function PostForm({ post }) {
             disabled
             label={"Slug"}
             type={"text"}
-            className={"mb-5 mt-2"}
+            className={"mb-5 mt-2 "}
             placeholder={"Slug auto generated"}
             {...register("slug", { required: true })}
           />
@@ -114,14 +114,14 @@ export default function PostForm({ post }) {
           <Input
             label={"Image"}
             type={"file"}
-            className={"mb-5 mt-2"}
+            className={"mb-5 mt-2  "}
             {...register("image", { required: true })}
             accept="image/png, image/jpg, image/jpeg, image/gif"
           />
           <Select
             label={"Status"}
             options={["Active", "Inactive"]}
-            className={"mb-5"}
+            className={"mb-5   "}
             value={"Active"}
             {...register("status", { required: true })}
           />

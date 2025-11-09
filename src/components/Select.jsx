@@ -11,7 +11,7 @@ function Select({ options=[], label, className = "", ref, ...props }) {
         id={id}
         ref={ref}
         value={props.value ||""}
-        className={`px-4 lg:px-6 lg:text-xl py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 lg:py-6 w-full ${className}`}
+        className={`px-4 lg:px-6 lg:text-xl py-2 rounded-lg bg-white  dark:bg-black dark:text-gray-400 outline-none focus:bg-gray-50 dark:focus:bg-gray-900 duration-200 border border-gray-200 lg:py-6 w-full ${className}`}
       >
         {
           options?.map((item) => (

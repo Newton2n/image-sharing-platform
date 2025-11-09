@@ -27,16 +27,16 @@ function Post() {
   const deletePost = async () => {
     await service.deleteFile(post.featuredImg);
     await service.deletePost(post.$id);
-    navigate("/all-post");
+    navigate("/");
   };
   const editPostBtn = () => {
-    return navigate(`/edit-post/${post?.$id}`);
+    navigate(`/edit-post/${post?.$id}`);
   };
 
   if (post) {
     return (
       <Container>
-        <div className="w-full py-10 px-10 flex max-sm:flex-col">
+        <div className="w-full py-10 px-10 flex max-sm:flex-col dark:bg-black">
           <div className="relative w-full md:w-2/3 mb-6 md:mb-0 mr-8">
             <img
               src={imgUrl}
@@ -54,6 +54,7 @@ function Post() {
                 >
                   Edit
                 </Button>
+
                 <Button
                   className="px-3 py-1 text-sm"
                   bgColor="bg-red-500 hover:bg-red-600 transition"
@@ -67,11 +68,11 @@ function Post() {
           <div className="w-1/3 mb-6 ">
             <div className="flex flex-col ">
               <span className="font-extrabold  text-gray-300">Title</span>
-              <h1 className="text-2xl  ">{post.title}</h1>
+              <h1 className="text-2xl  dark:text-gray-100">{post.title}</h1>
               <p className=" bg-gray-400 my-3 w-full h-[1.5px]"></p>
             </div>
-            <div className="text-xl">
-              <span className="font-bold  text-gray-300">Description</span>
+            <div className="text-xl dark:bg-gray-600 p-1 rounded">
+              <span className="font-bold  text-gray-300 mb-2">Description</span>
               {parse(post?.content)}
             </div>
           </div>
