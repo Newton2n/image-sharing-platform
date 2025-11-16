@@ -8,7 +8,7 @@ export default function PostForm({ post }) {
   const navigate = useNavigate();
   const userData = useSelector((data) => data.auth.userData);
   const [imgUrl, setImgUrl] = useState();
-  const { register, control, watch, handleSubmit, getValues, setValue } =
+  const { register, control, watch, handleSubmit, getValues, setValue,formState: { errors, isDirty } } =
     useForm({
       defaultValues: {
         title: post?.title||"",
@@ -113,8 +113,9 @@ export default function PostForm({ post }) {
         </div>
         <div className="right  flex flex-col  items-center">
           <Input
-            label={"Image"}
+            label={"Image (under 2 MB)"}
             type={"file"}
+           
             className={"mb-5 mt-2  "}
             {...register("image", { required: true })}
             accept="image/png, image/jpg, image/jpeg, image/gif"
@@ -126,9 +127,9 @@ export default function PostForm({ post }) {
             value={"Active"}
             {...register("status", { required: true })}
           />
-          <Button type={"submit"} className={"bg-orange-500 text-white w-[25%] my-3 py-1"}>
+          {isDirty && <Button type={"submit"} className={"bg-orange-500 text-white w-[25%] my-3 py-1"}>
             {post ? "Update" : "upload"}
-          </Button>
+          </Button>}
 
           {post && (
             <img className="rounded-xl w-3/4 " src={imgUrl} alt={post.title} />
