@@ -1,14 +1,7 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 
 const LenisContext = createContext(null);
-
 export const useLenis = () => useContext(LenisContext);
 
 export function LenisProvider({ children }) {
@@ -17,17 +10,17 @@ export function LenisProvider({ children }) {
 
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.08,
-      duration: 1.4,
-      smoothWheel: true,
-      smoothTouch: false,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.5,
+      lerp: 0.07,               // Smooth but responsive
+      duration: 1.2,            // Ease timing
+      smoothWheel: true,        // Desktop scroll
+      smoothTouch: true,        // Mobile touch scroll
+      wheelMultiplier: 0.9,     // Avoid jumps on fast wheel
+      touchMultiplier: 1.2,     // Responsive touch speed
       orientation: "vertical",
       gestureOrientation: "vertical",
     });
 
-    setLenisInstance(lenis); // Triggers re-render so consumers get real instance
+    setLenisInstance(lenis);
 
     function raf(time) {
       lenis.raf(time);
@@ -36,9 +29,16 @@ export function LenisProvider({ children }) {
 
     rafId.current = requestAnimationFrame(raf);
 
+    // Handle mobile viewport changes
+    const handleResize = () => lenis.resize();
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
     return () => {
-      cancelAnimationFrame(rafId.current); // Prevents memory leak
+      cancelAnimationFrame(rafId.current);
       lenis.destroy();
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
     };
   }, []);
 
