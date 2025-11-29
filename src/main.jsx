@@ -14,7 +14,7 @@ import Profile from "./components/Pages/Profile.jsx";
 import Post from "./components/Pages/Post.jsx";
 import { ErrorBoundary } from "./components/index.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import ReactLenis from "lenis/react"; //Smooth scroll animation
 const router = createBrowserRouter([
   {
     path: "/",
@@ -96,6 +96,20 @@ const router = createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <ReactLenis
+      root
+      options={{
+        lerp: 0.06, // smoother inertia
+        duration: 1.3, // longer easing curve
+        smoothWheel: true,
+        smoothTouch: false,
+        wheelMultiplier: 0.9, // reduces aggressive scroll jumps
+        touchMultiplier: 1.5,
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+      }}
+    >
+      <RouterProvider router={router} />
+    </ReactLenis>
   </Provider>
 );
