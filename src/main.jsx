@@ -3,7 +3,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { store } from "./store/store.js";
 import { Provider } from "react-redux";
-import { AuthLayout,LenisProvider } from "./components/index.js";
+import { AuthLayout, LenisProvider } from "./components/index.js";
 import Home from "./components/Pages/Home.jsx";
 import SignupPage from "./components/Pages/Signup.jsx";
 import LoginPage from "./components/Pages/Login.jsx";
@@ -14,6 +14,7 @@ import Profile from "./components/Pages/Profile.jsx";
 import Post from "./components/Pages/Post.jsx";
 import { ErrorBoundary } from "./components/index.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 
 const router = createBrowserRouter([
   {
@@ -43,15 +44,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={true}>
             <Profile />
-          </AuthLayout>
-        ),
-      },
-      {
-        path: "/add-post",
-        element: (
-          <AuthLayout authentication={true}>
-            {" "}
-            <AddPost />
           </AuthLayout>
         ),
       },
@@ -96,8 +88,9 @@ const router = createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-   <LenisProvider>
+    <LenisProvider>
+      <Analytics />
       <RouterProvider router={router} />
-    </LenisProvider> 
+    </LenisProvider>
   </Provider>
 );
