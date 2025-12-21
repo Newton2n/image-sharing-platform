@@ -20,6 +20,7 @@ import SkeletonEffect from "./SkeletonEffect";
 import ThemeToggler from "./ThemeToggler";
 import Popup from "./Popup";
 import ErrorBoundary from "./ErrorBoundary";
+import { LenisProvider } from "./LenisProvider";
 export {
   Container,
   Header,
@@ -41,6 +42,6 @@ export {
   SkeletonEffect,
   ThemeToggler,
   Popup,
-  ErrorBoundary
-
+  ErrorBoundary,
+  LenisProvider,
 };

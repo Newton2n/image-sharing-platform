@@ -17,14 +17,21 @@
     "@reduxjs/toolkit": "^2.9.0",
     "@tailwindcss/vite": "^4.1.15",
     "@tinymce/tinymce-react": "^6.3.0",
+    "@vercel/analytics": "^1.6.1",
     "appwrite": "^21.2.1",
     "html-react-parser": "^5.2.7",
     "lenis": "^1.3.15",
+<<<<<<< HEAD
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.65.0",
+=======
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-hook-form": "^7.69.0",
+>>>>>>> 4482a168c43bdc2c7bcb67c075a934506ac258e6
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.9.4",
+    "react-router-dom": "^7.11.0",
     "tailwindcss": "^4.1.15",
     "tinymce": "^8.1.2"
   },
