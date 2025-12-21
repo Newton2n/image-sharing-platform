@@ -21,7 +21,7 @@ function PostCard({ $id, title, featuredImg }) {
           </div>
           <img
             src={imgUrl}
-            className="rounded-2xl shadow-md shadow-cyan-500/50  hover:opacity-50
+            className="rounded-2xl shadow-md hover:opacity-50
 
 "
           />
