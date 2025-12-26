@@ -1,18 +1,21 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { Container, Button, PostCard } from "../index";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import service from "../../../appwrite/config";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import service from "@/lib/appwrite/config";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
 function Post() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { postId } = useParams();
   const [post, setPost] = useState();
   const [imgUrl, setImgUrl] = useState();
 
   const userData = useSelector((state) => state.auth.userData);
-  const isAuthor = post && userData ? post.userId === userData.$id : false;
+  console.log(userData)
+  const isAuthor = post && userData ? post.userId === userData?.$id : false;
 
   useEffect(() => {
     if (postId) {
@@ -23,15 +26,15 @@ function Post() {
         }
       });
     }
-  }, [postId, navigate]);
+  }, [postId, router]);
 
   const deletePost = async () => {
-    await service.deleteFile(post.featuredImg);
-    await service.deletePost(post.$id);
-    navigate("/");
+    await service.deleteFile(post?.featuredImg);
+    await service.deletePost(post?.$id);
+    router.replace("/");
   };
   const editPostBtn = () => {
-    navigate(`/edit-post/${post?.$id}`);
+    router.push(`/editpost/${post?.$id}`);
   };
 
   if (post) {

@@ -57,7 +57,7 @@ export default function PostForm({ post }) {
             userId: userData.$id,
           });
 
-          if (createPost) router.push(`/post/${createPost.$id}`,{ replace: true });
+          if (createPost) router.replace(`/post/${createPost.$id}`);
         }
       } catch (err) {
         throw err;

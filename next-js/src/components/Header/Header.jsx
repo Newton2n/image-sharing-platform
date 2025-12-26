@@ -9,6 +9,7 @@ function Header() {
   // const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.activeStatus);
   const userData = useSelector((state) => state.auth.userData);
+  console.log(userData,authStatus,"in header")
   const isActive =false ;
   const router =useRouter()
   const navItems = [
@@ -30,11 +31,12 @@ function Header() {
 
     {
       name: "Add Post",
-      slug: "/add-post",
+      slug: "/addpost",
       active: authStatus,
     },
     {
       name: "Profile",
+      // slug: `/profile`,
       slug: `/profile/${userData?.$id}`,
       active: authStatus,
     },

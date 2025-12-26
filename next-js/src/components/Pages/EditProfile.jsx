@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Container, Input, Button, Popup } from "../index";
-import service from "../../../appwrite/config";
+import service from "@/lib/appwrite/config";
 
 function EditProfile() {
   const userData = useSelector((state) => state.auth.userData);

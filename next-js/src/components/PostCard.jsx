@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import service from "@/lib/appwrite/config";
 import {  DownloadBtn } from "../components/index";
 
@@ -14,7 +14,7 @@ function PostCard({ $id, title, featuredImg }) {
 
 
   return (
-    <Link to={`/post/${$id}`}>
+    <Link href={`/post/${$id}`}>
       <div className="w-full bg-white dark:bg-black rounded-3xl  flex-col flex items-center ">
         <div className="w-full mb-2 flex flex-col">
           <div className="flex justify-end pb-2 pr-4 ">

@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  console.log(posts)
   const [loading,setLoading] = useState(true)
   const userActive = useSelector((state) => state.auth);
-
+   console.log(userActive)
   useEffect(() => {
     if (userActive) {
       service.getPosts()

@@ -1,22 +1,24 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import service from "../../../appwrite/config";
+import service from "@/lib/appwrite/config";
 import { Container, PostCard, SkeletonEffect } from "../index";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faEllipsis,faBorderAll} from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "next/navigation";
 function Profile() {
   const [userData, setUserData] = useState();
   const [userPost, setUserPost] = useState();
   const [loading, setLoading] = useState(true);
   const [accountDetails, setAccountDetails] = useState();
   const [profileImgUrl, setProfileImgUrl] = useState();
-
+ const user = useParams();
+ console.log(user)
   const getUserData = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
-    // if (!getUserData) return;
+    if (!getUserData) return;
 
     setUserData(getUserData);
 
@@ -72,7 +74,7 @@ function Profile() {
 
           <div className="flex justify-center space-x-3 mb-8">
             {userData && (
-              <Link to={"/edit-profile"}>
+              <Link href={"/editprofile"}>
                 <button className="cursor-pointer px-6 py-3 bg-gray-100 text-gray-800 font-bold rounded-full hover:bg-gray-200 transition duration-150 shadow-md">
                   Edit Profile
                 </button>
