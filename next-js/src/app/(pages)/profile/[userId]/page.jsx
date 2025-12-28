@@ -1,12 +1,12 @@
 import service from "@/lib/appwrite/config";
-import { Container, PostCard} from "@/components/index";
+import { Container, PostCard, LogInBtn } from "@/components/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBorderAll } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import ProfileActionButtons from "@/components/ui/profile-action-buttons";
-
+import Link from "next/link";
 async function Profile({ params }) {
-  const { userId } =await params;
+  const { userId } = await params;
   console.log(userId);
 
   const [profileResponse, postsResponse] = await Promise.all([
@@ -14,10 +14,19 @@ async function Profile({ params }) {
     service.getPostsQuery(userId),
   ]);
   console.log(profileResponse, postsResponse);
-  const accountDetails = profileResponse?.rows[0] || [];
+  const accountDetails = profileResponse?.rows[0];
   const userPost = postsResponse?.rows || [];
   const profileImgUrl = await service.fileView(accountDetails?.profileImageId);
   console.log(profileImgUrl);
+  console.log(accountDetails);
+
+  if (!accountDetails)
+    return (
+      <div className="py-30 flex w-full justify-center ">
+        <LogInBtn />
+      </div>
+    ); // show only this when no account details
+
   return (
     <div className="min-h-screen  antialiased p-4 sm:p-8 dark:bg-black">
       <div className="max-w-6xl mx-auto bg-white dark:bg-black rounded-3xl overflow-hidden">
@@ -44,7 +53,7 @@ async function Profile({ params }) {
           <p className="text-gray-700 dark:text-white max-w-lg mx-auto mb-4 px-2">
             {accountDetails?.about}
           </p>
-          <ProfileActionButtons /> 
+          <ProfileActionButtons />
         </div>
 
         <div className="flex justify-center border-t  border-gray-100 dark:border-gray-700 py-4 px-4 sticky top-0 bg-white dark:bg-black z-10 ">

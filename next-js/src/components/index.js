@@ -21,6 +21,7 @@ import Popup from "./Popup";
 import { LenisProvider } from "./LenisProvider";
 import ReduxProvider from "./Provider";
 import ThemeProvider from "./ThemeProvider";
+import LogInBtn from "./ui/log-in-btn";
 export {
   Container,
   Header,
@@ -44,5 +45,6 @@ export {
   Popup,
   LenisProvider,
   ReduxProvider,
- ThemeProvider
+ ThemeProvider,
+ LogInBtn
 };
