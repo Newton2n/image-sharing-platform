@@ -1,7 +1,7 @@
 import { Container, PostCard } from "@/components/index";
 import service from "@/lib/appwrite/config";
-
-async function Home() {
+import LogOutBtn from "@/components/Header/LogoutBtn";
+async function Page() {
   const allPostResponse = await service.getPosts();
   const allPost = allPostResponse?.rows || [];
   return (
@@ -18,9 +18,10 @@ async function Home() {
           ))}
         </div>
       </Container>
+      <LogOutBtn/>
     </div>
     
   );
 }
 
-export default Home;
+export default Page;

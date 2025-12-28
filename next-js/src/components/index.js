@@ -15,7 +15,7 @@ import PostForm from "./PostForm/PostForm";
 import AuthLayout from "./AuthLayout";
 import DownloadBtn from "./DownloadBtn";
 import BottomNav from "./BottomNav/BottomNav";
-import SkeletonEffect from "./SkeletonEffect";
+import SkeletonEffect from "./ui/SkeletonEffect";
 import ThemeToggler from "./ThemeToggler";
 import Popup from "./Popup";
 import { LenisProvider } from "./LenisProvider";
@@ -45,6 +45,6 @@ export {
   Popup,
   LenisProvider,
   ReduxProvider,
- ThemeProvider,
- LogInBtn
+  ThemeProvider,
+  LogInBtn,
 };

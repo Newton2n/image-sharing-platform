@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBorderAll } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import ProfileActionButtons from "@/components/ui/profile-action-buttons";
-import Link from "next/link";
+
+
 async function Profile({ params }) {
   const { userId } = await params;
   console.log(userId);
