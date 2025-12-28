@@ -9,7 +9,8 @@ import { faEllipsis, faBorderAll } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 
-function Profile() {
+ function Profile() {
+
   const [userData, setUserData] = useState();
   const [userPost, setUserPost] = useState();
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ function Profile() {
   const user = useParams();
   console.log(user);
   const getUserData = useSelector((state) => state.auth.userData);
-
+ console.log(getUserData)
   useEffect(() => {
     if (!getUserData) return;
 
