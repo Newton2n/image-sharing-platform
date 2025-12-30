@@ -45,7 +45,7 @@ function Signup() {
         className={`mx-auto w-full max-w-lg my-2 bg-gray-100 dark:bg-black rounded-xl p-10 border border-black/10 dark:border-gray-100`}
       >
         <div className="mb-2 flex justify-center">
-          <span className="w-full max-w-[100px]">
+          <span className="w-full max-w-25">
             <Logo />
           </span>
         </div>
