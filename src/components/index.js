@@ -44,6 +44,5 @@ export {
   Popup,
   LenisProvider,
   ReduxProvider,
-  ThemeProvider,
   LogInBtn,
 };

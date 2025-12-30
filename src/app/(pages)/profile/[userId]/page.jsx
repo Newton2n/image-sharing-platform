@@ -7,7 +7,6 @@ import ProfileActionButtons from "@/components/ui/profile-action-buttons";
 
 async function Profile({ params }) {
   const { userId } = await params;
-  
 
   const [profileResponse, postsResponse] = await Promise.all([
     service.getProfileInformationQuery(userId),
@@ -17,15 +16,18 @@ async function Profile({ params }) {
   const accountDetails = profileResponse?.rows[0];
   const userPost = postsResponse?.rows || [];
   const profileImgUrl = await service.fileView(accountDetails?.profileImageId);
-  
 
   if (!accountDetails)
     return (
-      <div className="py-30 flex w-full justify-center ">
-        <LogInBtn />
+      <div className="py-30 flex w-full justify-center bg-white dark:bg-black flex-col items-center">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white  mb-2">
+          Profile Not Found
+        </h2>
+        <p className="text-gray-600 dark:text-gray-400">
+          The profile you're looking for doesn't exist.
+        </p>
       </div>
-    ); // show only this when no account details
-
+    );
   return (
     <div className="min-h-screen  antialiased p-4 sm:p-8 dark:bg-black">
       <div className="max-w-6xl mx-auto bg-white dark:bg-black rounded-3xl overflow-hidden">
@@ -34,7 +36,7 @@ async function Profile({ params }) {
         <div className="p-4 -mt-16 sm:-mt-12 text-center">
           <Image
             src={
-              profileImgUrl && typeof profileImgUrl ==="string"
+              profileImgUrl && typeof profileImgUrl === "string"
                 ? profileImgUrl
                 : "/image/initial-profile-pic.webp"
             }

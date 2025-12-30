@@ -35,6 +35,8 @@ function EditProfile() {
   //Fetching user details
   useEffect(() => {
     const getInformation = async () => {
+        if (!userData?.$id) return;
+ 
       const information = await service.getProfileInformationQuery(
         userData?.$id
       );
@@ -128,7 +130,6 @@ function EditProfile() {
 
   //getting img url
   useEffect(() => {
-    console.log("profile img id",userInformation?.profileImageId)
     if (userInformation)
       service
         .fileView(userInformation?.profileImageId)

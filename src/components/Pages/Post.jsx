@@ -45,14 +45,14 @@ function Post() {
       <Container>
         <div className="w-full py-10 px-10 flex max-sm:flex-col dark:bg-black">
           <div className="relative w-full md:w-2/3 mb-6 md:mb-0 mr-8">
-            <Image
+           {imgUrl &&( <Image
               src={imgUrl}
               alt={post.title}
               height={500}
               width={500}
               quality={100}
               className="rounded-xl w-full h-auto object-cover border"
-            />
+            />)}
 
             {/* Edit/Delete Buttons - Absolute positioning for flexibility */}
             {isAuthor && (

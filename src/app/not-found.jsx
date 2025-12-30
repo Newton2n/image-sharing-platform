@@ -38,7 +38,7 @@ const AnimatedCar = ({ animationName, color, rotation }) => (
   </div>
 );
 
-const ErrorBoundary = () => {
+const NotFoundPage = () => {
   return (
     <>
       <style>{style}</style>
@@ -98,11 +98,10 @@ const ErrorBoundary = () => {
           className="mt-6 text-gray-900 dark:text-gray-100 font-semibold text-nowrap"
           style={{ fontSize: "clamp(1rem, 4vw, 2.5rem)" }}
         >
-          OPPS! SORRY⚠️PAGE NOT FOUND
+          O0PS! SORRY⚠️PAGE NOT FOUND
         </h2>
 
         <div className="flex gap-x-3 md:gap-x-6 mt-4">
-          
           <BackHome />
           <BackButton />
         </div>
@@ -111,4 +110,4 @@ const ErrorBoundary = () => {
   );
 };
 
-export default ErrorBoundary;
+export default NotFoundPage;

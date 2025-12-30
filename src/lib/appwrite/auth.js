@@ -12,7 +12,7 @@ export class AuthService {
       .setProject(conf.appwriteProjectId);
     this.account = new Account(this.client);
   }
-  async createAccount({ name,email, password }) {
+  async createAccount({ name,email,password }) {
     try {
       const userAccount = await this.account.create({
         userId: ID.unique(),

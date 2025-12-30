@@ -8,7 +8,7 @@ function Header() {
   // const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.activeStatus);
   const userData = useSelector((state) => state.auth.userData);
-  
+
   const isActive =false ;
   const router =useRouter()
   const navItems = [
@@ -36,7 +36,7 @@ function Header() {
     {
       name: "Profile",
       // slug: `/profile`,
-      slug: `/profile/${userData?.$id}`,
+      slug: `/profile/${userData?.$id ||"me"}`,
       active: authStatus,
     },
   ];

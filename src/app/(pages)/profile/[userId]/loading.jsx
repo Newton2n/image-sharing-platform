@@ -1,6 +1,6 @@
 import ProfileSkeleton from "@/components/ui/profile-skeleton";
-const loading = () => {
+const Loading = () => {
   return <ProfileSkeleton />;
 };
 
-export default loading;
+export default Loading;

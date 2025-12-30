@@ -14,13 +14,11 @@ function EditPost() {
   useEffect(() => {
     if (postId) {
       service.getPost(postId).then((post) =>setPost(post));
-    
-      router.push(`/editpost/${postId}`)
     } else {
      
       router.push("/");
     }
-  }, [ postId,router]);
+  }, [ postId]);
 
   return <div className="w-full py-8 bg-black">
      <Container>
