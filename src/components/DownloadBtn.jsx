@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCircleDown} from "@fortawesome/free-solid-svg-icons";
-import service from "../../appwrite/config";
+import service from "@/lib/appwrite/config";
 function DownloadBtn({ featuredImg }) {
  
   return (

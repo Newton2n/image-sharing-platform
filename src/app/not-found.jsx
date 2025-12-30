@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-
-import { useNavigate } from "react-router-dom";
-
+import BackButton from "@/components/ui/back-button";
+import BackHome from "@/components/ui/back-home";
 // Animation
 const style = `
   :root { --car-radius: 90px; }
@@ -40,15 +38,7 @@ const AnimatedCar = ({ animationName, color, rotation }) => (
   </div>
 );
 
-const ErrorBoundary = () => {
-  
-
-  
-  const [hover, setHover] = useState(false);
-  const navigate = useNavigate();
-
-  const goHome = () => navigate("/", { replace: true });
-
+const NotFoundPage = () => {
   return (
     <>
       <style>{style}</style>
@@ -105,31 +95,19 @@ const ErrorBoundary = () => {
 
         {/* Text */}
         <h2
-          className="mt-6 text-gray-900 dark:text-gray-100 font-semibold"
-          style={{ fontSize: "clamp(1.3rem, 4vw, 2.5rem)" }}
+          className="mt-6 text-gray-900 dark:text-gray-100 font-semibold text-nowrap"
+          style={{ fontSize: "clamp(1rem, 4vw, 2.5rem)" }}
         >
-          Sorry⚠️page not found
+          O0PS! SORRY⚠️PAGE NOT FOUND
         </h2>
 
-        {/* Button */}
-        <button
-          onClick={goHome}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          className={`
-            mt-6 px-8 py-3 font-bold rounded-lg text-white shadow-md transition-all cursor-pointer
-            ${hover ? "bg-red-700 scale-[1.03]" : "bg-red-600"} 
-            dark:${hover ? "bg-red-800" : "bg-red-700"}
-          `}
-          style={{
-            fontSize: "clamp(1rem, 2.5vw, 1.2rem)",
-          }}
-        >
-          Go Home
-        </button>
+        <div className="flex gap-x-3 md:gap-x-6 mt-4">
+          <BackHome />
+          <BackButton />
+        </div>
       </div>
     </>
   );
 };
 
-export default ErrorBoundary;
+export default NotFoundPage;

@@ -1,6 +1,6 @@
 import { Client, ID, TablesDB, Databases, Storage, Query } from "appwrite";
-import conf from "../conf/conf";
-import { useLinkClickHandler } from "react-router-dom";
+import conf from "@/lib/conf/conf";
+
 
 export class Service {
   client = new Client();

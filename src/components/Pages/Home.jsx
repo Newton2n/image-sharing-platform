@@ -1,13 +1,14 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { Container, PostCard ,SkeletonEffect } from "../index";
-import service from "../../../appwrite/config";
+import service from "@/lib/appwrite/config";
 import { useSelector } from "react-redux";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  
   const [loading,setLoading] = useState(true)
   const userActive = useSelector((state) => state.auth);
-
   useEffect(() => {
     if (userActive) {
       service.getPosts()
