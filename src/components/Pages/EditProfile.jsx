@@ -1,9 +1,10 @@
+"use client"
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Container, Input, Button, Popup } from "../index";
-import service from "../../../appwrite/config";
-
+import service from "@/lib/appwrite/config";
+import Image from "next/image";
 function EditProfile() {
   const userData = useSelector((state) => state.auth.userData);
   const [userInformation, setUserInformation] = useState();
@@ -35,23 +36,23 @@ function EditProfile() {
   useEffect(() => {
     const getInformation = async () => {
       const information = await service.getProfileInformationQuery(
-        userData.$id
+        userData?.$id
       );
-      const row = information.rows[0];
+      const row = information?.rows[0];
       setUserInformation(row);
 
       // set baseline
       reset({
-        fullName: row.fullName || "",
-        email: row.email || "",
-        phoneNumber: row.phoneNumber || "",
-        about: row.about || "",
-        userName: row.userName || "",
+        fullName: row?.fullName || "",
+        email: row?.email || "",
+        phoneNumber: row?.phoneNumber || "",
+        about: row?.about || "",
+        userName: row?.userName || "",
       });
     };
 
     getInformation();
-  }, [userData.$id, reset]);
+  }, [userData?.$id, reset]);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [submitResult, setSubmitResult] = useState(false);
@@ -60,9 +61,9 @@ function EditProfile() {
   //profile updated profile information
   const onProfileSubmit = async (data) => {
     try {
-      await service.updateProfileInformationPost(userInformation.$id, {
+      await service.updateProfileInformationPost(userInformation?.$id, {
         ...data,
-        userId: userData.$id,
+        userId: userData?.$id,
       });
       setSubmitResult(true);
       setSubmitResultMessage("Profile information updated successfully");
@@ -84,11 +85,11 @@ function EditProfile() {
     if (!userInformation) return;
 
     reset({
-      fullName: userInformation.fullName || "",
-      email: userInformation.email || "",
-      phoneNumber: userInformation.phoneNumber || "",
-      about: userInformation.about || "",
-      userName: userInformation.userName || "",
+      fullName: userInformation?.fullName || "",
+      email: userInformation?.email || "",
+      phoneNumber: userInformation?.phoneNumber || "",
+      about: userInformation?.about || "",
+      userName: userInformation?.userName || "",
     });
   };
 
@@ -104,7 +105,7 @@ function EditProfile() {
           await service.deleteFile(userInformation.profileImageId);
 
         await service.updateProfileInformationPost(userInformation.$id, {
-          profileImageId: fileUpload.$id,
+          profileImageId: fileUpload?.$id,
         });
       }
       setSubmitResult(true);
@@ -123,16 +124,17 @@ function EditProfile() {
   };
 
   //profile img url
-  const [profileImgUrl, setProfileImgUrl] = useState(0);
+  const [profileImgUrl, setProfileImgUrl] = useState(null);
 
   //getting img url
   useEffect(() => {
+    console.log("profile img id",userInformation?.profileImageId)
     if (userInformation)
       service
         .fileView(userInformation?.profileImageId)
         .then((url) => setProfileImgUrl(url));
   }, [userInformation]);
-
+  console.log("img url",profileImgUrl)
   const [imgPopup, setImgPopup] = useState(false);
   const [resetPopup, setResetPopup] = useState(false);
 
@@ -188,14 +190,18 @@ function EditProfile() {
             <p className="text-black dark:text-white py-1">Photo</p>
             <div className="w-full flex">
               <div
-                className="w-20 h-20 bg-center bg-cover rounded-full border border-black dark:border-white"
-                style={{
-                  backgroundImage: `url(${
-                    profileImgUrl ||
-                    "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?ixlib=rb-4.1.0&auto=format&fit=crop&w=1074&q=80"
-                  })`,
-                }}
-              ></div>
+                className="relative w-20 h-20 rounded-full border border-black dark:border-white overflow-hidden"
+                
+              >
+                <Image
+                  src={profileImgUrl && typeof profileImgUrl ==="string"
+                ? profileImgUrl
+                : "/image/initial-profile-pic.webp"}
+                  alt="profile picture"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <span className="my-auto ml-5">
                 <Button
                   className="bg-gray-200 text-gray-800"

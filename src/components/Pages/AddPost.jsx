@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { PostForm,Container } from "../index";
 function AddPost() {

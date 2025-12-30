@@ -1,30 +1,38 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import service from "../../appwrite/config";
-import {  DownloadBtn } from "../components/index";
-
+import Link from "next/link";
+import service from "@/lib/appwrite/config";
+import { DownloadBtn } from "../components/index";
+import Image from "next/image";
 function PostCard({ $id, title, featuredImg }) {
   const [imgUrl, setImgUrl] = useState();
-
+  console.log(imgUrl);
   useEffect(() => {
-    service.fileView(featuredImg).then((url) => setImgUrl(url));
-  }, []);
-
-
+    let isMounted = true;
+    service.fileView(featuredImg).then((url) => {
+      if (isMounted) setImgUrl(url);
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [featuredImg]);
 
   return (
-    <Link to={`/post/${$id}`}>
+    <Link href={`/post/${$id}`}>
       <div className="w-full bg-white dark:bg-black rounded-3xl  flex-col flex items-center ">
         <div className="w-full mb-2 flex flex-col">
           <div className="flex justify-end pb-2 pr-4 ">
-          <DownloadBtn featuredImg={featuredImg} />
+            <DownloadBtn featuredImg={featuredImg} />
           </div>
-          <img
-            src={imgUrl}
-            className="rounded-2xl shadow-md dark:shadow dark:shadow-white/50  hover:opacity-50
-
-"
-          />
+          {imgUrl && (
+            <Image
+              src={imgUrl}
+              alt={title}
+              height={400}
+              width={200}
+              className="rounded-2xl shadow-md dark:shadow dark:shadow-white/50  hover:opacity-50"
+            />
+          )}
         </div>
         <h2 className="text-[13px]  pb-1 dark:text-white">{title} </h2>
       </div>

@@ -1,14 +1,16 @@
+"use client"
 import React from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Logo, Container, LogoutBtn, BottomNav, Button,ThemeToggler } from "../index";
 import { useSelector } from "react-redux";
-
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 function Header() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.activeStatus);
   const userData = useSelector((state) => state.auth.userData);
-
-
+  console.log(userData,authStatus,"in header")
+  const isActive =false ;
+  const router =useRouter()
   const navItems = [
     {
       name: "Home",
@@ -28,11 +30,12 @@ function Header() {
 
     {
       name: "Add Post",
-      slug: "/add-post",
+      slug: "/addpost",
       active: authStatus,
     },
     {
       name: "Profile",
+      // slug: `/profile`,
       slug: `/profile/${userData?.$id}`,
       active: authStatus,
     },
@@ -45,7 +48,7 @@ function Header() {
         <BottomNav />
         <nav className="flex   items-center">
           <div className="mr-4 ml-3">
-            <Link to="/">
+            <Link href="/">
               <Logo />
             </Link>
           </div>
@@ -56,16 +59,16 @@ function Header() {
                   key={item.name}
                   className=" font-medium hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800 rounded-2xl max-sm:hidden"
                 >
-                  <NavLink
-                    to={item.slug}
-                    className={({ isActive }) =>
+                  <Link
+                    href={item.slug}
+                    className={
                       isActive
                         ? "inline-bock px-6 py-2 text-red-500 rounded-2xl cursor-pointer  "
                         : "inline-bock px-6 py-2   rounded-full cursor-pointer"
                     }
                   >
                     {item.name}
-                  </NavLink>
+                  </Link>
                 </li>
               ) : null
             )}
@@ -81,7 +84,7 @@ function Header() {
                   <LogoutBtn />
                 ) : (
                   <Button
-                    onClick={() => navigate("/login", { replace: true })}
+                    onClick={() => router.replace("/login")}
                     children={"Login"}
                     className={"bg-red-500 text-white hover:bg-red-600"}
                   />

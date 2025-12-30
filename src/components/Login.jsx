@@ -1,14 +1,16 @@
+"use client"
 import React, { useEffect, useState } from "react";
 
-import authservice from "../../appwrite/auth";
-import { login as authLogin } from "../store/authSlice";
+import authservice from "@/lib/appwrite/auth";
+import { login as authLogin } from "@/store/authSlice";
 import { Input, Button, Logo } from "./index";
 import { useForm } from "react-hook-form";
 import { useDispatch,useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 function Login() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router =useRouter()
   
   const { register, formState: { errors }, handleSubmit } = useForm();
  
@@ -27,7 +29,7 @@ function Login() {
 
         
         if (userData) dispatch(authLogin(userData));
-        navigate("/",{replace:true});
+        router.replace("/");
         
       }
     } catch (error) {
@@ -49,7 +51,7 @@ function Login() {
         <p className="mt-2 text-center text-base text-black/60 dark:text-gray-400">
           Don&apos;t have any account?&nbsp;
           <Link
-            to="/signup"
+            href="/signup"
             className="font-medium text-primary transition-all duration-200 hover:underline text-red-400"
           >
             Sign Up

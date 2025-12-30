@@ -11,16 +11,16 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Protected from "./AuthLayout";
 import RTE from "./Rte";
-// import PostForm from "./PostForm/postForm";
 import PostForm from "./PostForm/PostForm";
 import AuthLayout from "./AuthLayout";
 import DownloadBtn from "./DownloadBtn";
 import BottomNav from "./BottomNav/BottomNav";
-import SkeletonEffect from "./SkeletonEffect";
+import SkeletonEffect from "./ui/SkeletonEffect";
 import ThemeToggler from "./ThemeToggler";
 import Popup from "./Popup";
-import ErrorBoundary from "./ErrorBoundary";
 import { LenisProvider } from "./LenisProvider";
+import ReduxProvider from "./providers/Provider";
+import LogInBtn from "./ui/log-in-btn";
 export {
   Container,
   Header,
@@ -42,6 +42,8 @@ export {
   SkeletonEffect,
   ThemeToggler,
   Popup,
-  ErrorBoundary,
   LenisProvider,
+  ReduxProvider,
+  ThemeProvider,
+  LogInBtn,
 };

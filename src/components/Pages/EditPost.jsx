@@ -1,23 +1,26 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { Container, PostForm } from "../index";
 
-import service from "../../../appwrite/config";
-import { useParams, useNavigate } from "react-router-dom";
+import service from "@/lib/appwrite/config";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+
 function EditPost() {
   const [post, setPost] = useState();
-  const navigate = useNavigate();
+  const router = useRouter();
   const { postId } = useParams();
   
   useEffect(() => {
     if (postId) {
       service.getPost(postId).then((post) =>setPost(post));
     
-      navigate(`/edit-post/${postId}`)
+      router.push(`/editpost/${postId}`)
     } else {
      
-      navigate("/");
+      router.push("/");
     }
-  }, [ postId,navigate]);
+  }, [ postId,router]);
 
   return <div className="w-full py-8 bg-black">
      <Container>

@@ -1,11 +1,10 @@
-
-import { Link } from 'react-router-dom'
+import Link from 'next/link';
 import Logo from '../Logo';
 
 function Footer() {
   return (
     <section className="relative overflow-hidden py-10 bg-white dark:bg-black border border-t-2 border-t-black dark:border-t-gray-200">
-            <div className="relative z-10 mx-auto max-w-7xl px-4">
+            <div className="relative z-10 mx-auhref max-w-7xl px-4">
                 <div className="-m-6 flex flex-wrap">
                     <div className="w-full p-6 sm:1/2 md:w-1/2 lg:w-5/12">
                         <div className="flex h-full flex-col justify-between">
@@ -28,7 +27,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Features
                                     </Link>
@@ -36,7 +35,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Pricing
                                     </Link>
@@ -44,7 +43,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Affiliate Program
                                     </Link>
@@ -52,7 +51,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Press Kit
                                     </Link>
@@ -69,7 +68,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Account
                                     </Link>
@@ -77,7 +76,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Help
                                     </Link>
@@ -85,7 +84,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Contact Us
                                     </Link>
@@ -93,7 +92,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Customer Support
                                     </Link>
@@ -110,7 +109,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Terms &amp; Conditions
                                     </Link>
@@ -118,7 +117,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Privacy Policy
                                     </Link>
@@ -126,7 +125,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className=" text-base font-medium text-gray-900 dark:hover:text-gray-500  dark:text-gray-300"
-                                        to="/"
+                                        href="/"
                                     >
                                         Licensing
                                     </Link>

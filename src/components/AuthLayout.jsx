@@ -1,9 +1,10 @@
+"use client"
 import { useEffect, useState } from "react";
-import { replace, useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 function Protected({ children ,authentication =true}) {
   const authStatus = useSelector((state) => state.auth.activeStatus);
-  const navigate = useNavigate();
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
 
 
@@ -11,9 +12,9 @@ function Protected({ children ,authentication =true}) {
  
   
         if(authentication && authStatus !== authentication){
-            navigate("/login",{replace:true})
+            router.replace("/login")
         } else if(!authentication && authStatus !== authentication){
-            navigate("/",{replace:true})
+            router.replace("/")
         }
         setLoading(false)
     
