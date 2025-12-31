@@ -127,15 +127,16 @@ function EditProfile() {
 
   //profile img url
   const [profileImgUrl, setProfileImgUrl] = useState(null);
-
+ 
+ const profileImageId = userInformation?.profileImageId
   //getting img url
   useEffect(() => {
-    if (userInformation)
+    if (profileImageId)
       service
-        .fileView(userInformation?.profileImageId)
+        .fileView(profileImageId)
         .then((url) => setProfileImgUrl(url));
   }, [userInformation]);
-  console.log("img url",profileImgUrl)
+
   const [imgPopup, setImgPopup] = useState(false);
   const [resetPopup, setResetPopup] = useState(false);
 
