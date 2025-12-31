@@ -13,9 +13,9 @@ async function Profile({ params }) {
     service.getPostsQuery(userId),
   ]);
 
-  const accountDetails = profileResponse?.rows[0];
+  const accountDetails = profileResponse?.rows[0]; //user profile details
   const userPost = postsResponse?.rows || [];
-  const profileImgUrl = await service.fileView(accountDetails?.profileImageId);
+  const profileImgUrl =accountDetails?.profileImageId && await service.fileView(accountDetails?.profileImageId);
 
   if (!accountDetails)
     return (
