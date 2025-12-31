@@ -1,16 +1,18 @@
+"use client";
 import React, { useState } from "react";
 import { Input, Button, Logo } from "./index";
-import authservice from "../../appwrite/auth";
-import service from "../../appwrite/config";
+import authservice from "@/lib/appwrite/auth";
+import service from "@/lib/appwrite/config";
 import { login } from "../store/authSlice";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+
 import { useForm } from "react-hook-form";
 import { themeSlice } from "../store/themeSlice";
-
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 function Signup() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const router = useRouter()
   const [error, setError] = useState();
   const {
     handleSubmit,
@@ -31,7 +33,7 @@ function Signup() {
           });
           if (userData) dispatch(login(userData));
         });
-        return navigate("/", { replace: true });
+        return router.replace("/");
       }
     } catch (error) {
       setError("error occurred", error.message);
@@ -43,7 +45,7 @@ function Signup() {
         className={`mx-auto w-full max-w-lg my-2 bg-gray-100 dark:bg-black rounded-xl p-10 border border-black/10 dark:border-gray-100`}
       >
         <div className="mb-2 flex justify-center">
-          <span className="w-full max-w-[100px]">
+          <span className="w-full max-w-25">
             <Logo />
           </span>
         </div>
@@ -53,7 +55,7 @@ function Signup() {
         <p className="mt-2 text-center text-base text-black/60  dark:text-gray-600 mb-4">
           Already have an account?&nbsp;
           <Link
-            to="/login"
+            href="/login"
             className="font-medium text-primary transition-all duration-200 hover:underline text-red-400"
           >
             Sign In

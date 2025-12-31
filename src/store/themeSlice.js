@@ -1,9 +1,11 @@
+"use client"
 import { createSlice } from "@reduxjs/toolkit";
-const initialTheme = localStorage.getItem("theme") || "light";
+// const initialTheme = localStorage.getItem("theme") || "light";
+
 export const themeSlice = createSlice({
     name :"theme",
   initialState: {
-    mood: initialTheme,
+    mood: "light",
   },
 
   reducers: {
