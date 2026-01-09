@@ -1,5 +1,9 @@
 import { Container, PostCard } from "@/components/index";
 import service from "@/lib/appwrite/config";
+export const metadata = {
+  title: "Home",
+  description: "Explore Images from the world",
+};
 async function Page() {
   const allPostResponse = await service.getPosts();
   const allPost = allPostResponse?.rows || [];

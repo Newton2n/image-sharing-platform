@@ -1,9 +1,21 @@
 import service from "@/lib/appwrite/config";
-import { Container, PostCard, LogInBtn } from "@/components/index";
+import { Container, PostCard } from "@/components/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBorderAll } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import ProfileActionButtons from "@/components/ui/profile-action-buttons";
+
+export async function generateMetadata({ params }) {
+  const { userId } = await params;
+  const profileResponse = await service.getProfileInformationQuery(userId);
+  const accountDetails = profileResponse.rows[0];
+  return {
+    title: `${accountDetails?.userName || accountDetails?.fullName}`,
+    description: `View ${
+      accountDetails?.userName || accountDetails?.fullName
+    }'s posts and activity on Postora`,
+  };
+}
 
 async function Profile({ params }) {
   const { userId } = await params;
@@ -15,7 +27,9 @@ async function Profile({ params }) {
 
   const accountDetails = profileResponse?.rows[0]; //user profile details
   const userPost = postsResponse?.rows || [];
-  const profileImgUrl =accountDetails?.profileImageId && await service.fileView(accountDetails?.profileImageId);
+  const profileImgUrl =
+    accountDetails?.profileImageId &&
+    (await service.fileView(accountDetails?.profileImageId));
 
   if (!accountDetails)
     return (
