@@ -1,10 +1,15 @@
-import EditPost from '@/components/Pages/EditPost'
-import React from 'react'
-
-const page = () => {
-  return (
-    <EditPost/>
-  )
+import EditPost from "@/components/Pages/EditPost";
+import React from "react";
+import service from "@/lib/appwrite/config";
+export async function generateMetadata({ params }) {
+  const { postId } = await params;
+  const postInformation = await service.getPost(postId);
+  return {
+    title: `Editing ${postInformation.title}`,
+  };
 }
+const page = () => {
+  return <EditPost />;
+};
 
-export default page
+export default page;

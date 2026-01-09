@@ -13,7 +13,7 @@ function Footer() {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                                    &copy; Copyright 2025. All Rights Reserved by Webcrea8or.
+                                    &copy; Copyright 2026. All Rights Reserved by Webcre8or.
                                 </p>
                             </div>
                         </div>

@@ -1,16 +1,21 @@
-"use client"
+"use client";
 import React from "react";
-import { Logo, Container, LogoutBtn, BottomNav, Button,ThemeToggler } from "../index";
+import {
+  Logo,
+  Container,
+  LogoutBtn,
+  BottomNav,
+  Button,
+  ThemeToggler,
+} from "../index";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 function Header() {
-  // const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.activeStatus);
   const userData = useSelector((state) => state.auth.userData);
-
-  const isActive =false ;
-  const router =useRouter()
+  const isActive = false;
+  const router = useRouter();
   const navItems = [
     {
       name: "Home",
@@ -35,8 +40,8 @@ function Header() {
     },
     {
       name: "Profile",
-      // slug: `/profile`,
-      slug: `/profile/${userData?.$id ||"me"}`,
+
+      slug: `/profile/${userData?.$id || "me"}`,
       active: authStatus,
     },
   ];
@@ -72,12 +77,11 @@ function Header() {
                 </li>
               ) : null
             )}
-                {
-                  <li>
-                   
-                    <ThemeToggler className={"px-3 "}/>
-                  </li>
-                }
+            {
+              <li>
+                <ThemeToggler className={"px-3 "} />
+              </li>
+            }
             {
               <li className="ml-2 mr-3">
                 {userData ? (
