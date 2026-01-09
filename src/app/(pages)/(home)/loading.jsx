@@ -1,6 +1,6 @@
 import React from "react";
 import SkeletonEffect from "@/components/ui/SkeletonEffect";
-const Loading = () => {
+const loading = () => {
   return <SkeletonEffect count={20} />;
 };
 

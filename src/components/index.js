@@ -15,7 +15,6 @@ import PostForm from "./PostForm/PostForm";
 import AuthLayout from "./AuthLayout";
 import DownloadBtn from "./DownloadBtn";
 import BottomNav from "./BottomNav/BottomNav";
-import SkeletonEffect from "./ui/SkeletonEffect";
 import ThemeToggler from "./ThemeToggler";
 import Popup from "./Popup";
 import { LenisProvider } from "./LenisProvider";

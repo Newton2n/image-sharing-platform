@@ -1,14 +1,14 @@
 import React from "react";
-import { Container } from "../index";
+import { Container } from "@/components";
 
 function SkeletonCard() {
   return (
     <div className="break-inside-avoid rounded-md p-1">
       <div className="flex flex-col animate-pulse">
-        <div className="w-full h-32 rounded bg-gray-200 dark:bg-gray-800"></div>
-        <div className="mt-3 space-y-2">
-          <div className="h-3 w-3/4 rounded bg-gray-200 dark:bg-gray-800"></div>
-          <div className="h-3 w-1/2 rounded bg-gray-200 dark:bg-gray-800"></div>
+        <div className="w-full h-32 rounded bg-gray-200 dark:bg-zinc-800"></div>
+        <div className="mt-3 space-y-2 ">
+          <div className="h-3 w-3/4 rounded bg-gray-200 dark:bg-zinc-800 ml-2"></div>
+          <div className="h-3 w-1/2 rounded bg-gray-200 dark:bg-zinc-800 ml-2"></div>
         </div>
       </div>
     </div>
