@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Container, Button, PostCard } from "../index";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import service from "@/lib/appwrite/config";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
@@ -14,6 +13,7 @@ function Post() {
   const router = useRouter();
   const { postId } = useParams();
   const [post, setPost] = useState();
+  console.log(post)
   const [imgUrl, setImgUrl] = useState();
 
   const userData = useSelector((state) => state.auth.userData);
