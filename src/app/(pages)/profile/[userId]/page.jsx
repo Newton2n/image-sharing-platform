@@ -1,5 +1,6 @@
 import service from "@/lib/appwrite/config";
 import { Container, PostCard } from "@/components/index";
+import AuthorPicture from "@/components/ui/author-picture";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBorderAll } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
@@ -52,7 +53,7 @@ async function Profile({ params }) {
             src={
               profileImgUrl && typeof profileImgUrl === "string"
                 ? profileImgUrl
-                : "/image/initial-profile-pic.webp"
+                : "/image/initial-profile-pic2.webp"
             }
             alt={"Profile Image"}
             height={100}
@@ -88,13 +89,21 @@ async function Profile({ params }) {
         <div className="p-4 sm:p-6 md:p-8">
           <div className="m-2">
             <Container>
-              <div className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 ">
+              <div className="columns-1 min-[200px]:columns-2 min-[440px]:columns-3 sm:columns-4 lg:columns-5 xl:columns-6 2xl:columns-9">
                 {userPost?.map((post) => (
                   <div
                     key={post.$id}
                     className="mb-4 break-inside-avoid transition-transform hover:scale-[1.02] "
                   >
-                    <PostCard {...post} />
+                    <PostCard
+                      {...post}
+                      authorAvatar={
+                        <AuthorPicture
+                          userId={post.userId}
+                          className={"w-4 h-4 "}
+                        />
+                      }
+                    />
                   </div>
                 ))}
               </div>
