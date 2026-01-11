@@ -198,10 +198,11 @@ function EditProfile() {
                 <Image
                   src={profileImgUrl && typeof profileImgUrl ==="string"
                 ? profileImgUrl
-                : "/image/initial-profile-pic.webp"}
+                : "/image/initial-profile-pic2.webp"}
                   alt="profile picture"
                   fill
-                  className="object-cover"
+
+                  className="object-cover h-full w-full"
                 />
               </div>
               <span className="my-auto ml-5">
