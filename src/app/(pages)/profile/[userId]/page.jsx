@@ -100,7 +100,7 @@ async function Profile({ params }) {
                       authorAvatar={
                         <AuthorPicture
                           userId={post.userId}
-                          className={"w-4 h-4 "}
+                          className={"w-4 h-4 relative"}
                         />
                       }
                     />

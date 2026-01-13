@@ -1,6 +1,7 @@
 import service from "@/lib/appwrite/config";
 import Image from "next/image";
 async function AuthorPicture({ userId, className }) {
+
   //author profile response
   const authorInformation = await service.getProfileInformationQuery(userId);
   
@@ -16,7 +17,7 @@ async function AuthorPicture({ userId, className }) {
 
   return (
     <span
-      className={`${className} relative rounded-full overflow-hidden  `}
+      className={`${className}  rounded-full overflow-hidden  `}
     >
       <Image
         src={authorProfileImgUrl}
