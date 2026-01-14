@@ -16,8 +16,8 @@ export async function generateMetadata({ params }) {
     };
   }
   return {
-    title: postData.title,
-    description: postData.description,
+    title: postData?.title,
+    description: postData?.description,
   };
 }
 
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }) {
 export default async function Page({ params }) {
   const { postId } = await params;
   const post = await service.getPost(postId);
-  const imgUrl = await service.fileView(post.featuredImg);
+  const imgUrl = await service.fileView(post?.featuredImg);
 
   if (post) {
     return (
@@ -37,7 +37,7 @@ export default async function Page({ params }) {
               {imgUrl && (
                 <Image
                   src={imgUrl}
-                  alt={post.title}
+                  alt={post?.title}
                   height={500}
                   width={500}
                   quality={100}
@@ -61,7 +61,7 @@ export default async function Page({ params }) {
             <div className="w-1/3 mb-6 ">
               <div className="flex flex-col ">
                 <span className="font-extrabold  text-gray-300">Title</span>
-                <h1 className="text-2xl  dark:text-gray-100">{post.title}</h1>
+                <h1 className="text-2xl  dark:text-gray-100">{post?.title}</h1>
                 <p className=" bg-gray-400 my-3 w-full h-[1.5px]"></p>
               </div>
               <div className="text-xl dark:bg-gray-600 p-1 rounded">

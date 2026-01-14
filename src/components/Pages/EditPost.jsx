@@ -21,12 +21,12 @@ function EditPost() {
         .getPost(postId)
         .then((post) => setPost(post))
         .catch((err) => {
-          console.log(err);
+          router.replace("/");
         });
     } else {
       router.replace("/");
     }
-  }, [postId]);
+  }, [postId, router]);
 
   //Authenticate owner
   useEffect(() => {
@@ -34,8 +34,8 @@ function EditPost() {
       setIsAuthor(true);
     } else {
       const wait = setTimeout(() => {
-        if (post?.userId !== userData?.$id) router.replace(`/post/${post.$id}`);
-      }, 500);
+        if (post?.userId !== userData?.$id) router.replace(`/post/${post?.$id}`);
+      }, 1000);
       return () => clearTimeout(wait);
     }
   }, [userData, post]);

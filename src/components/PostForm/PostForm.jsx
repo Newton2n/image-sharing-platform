@@ -30,16 +30,6 @@ export default function PostForm({ post }) {
       status: post?.status || "Active",
     },
   });
-  useEffect(() => {
-    if (userData) {
-      setIsAuthor(true);
-    } else {
-      const wait = setTimeout(() => {
-        if (!userData) router.replace("/login");
-      }, 500);
-      return () => clearTimeout(wait);
-    }
-  }, [userData]); //authenticate user wait 500 ms for authenticate
 
   useEffect(() => {
     if (!post) return;
@@ -105,9 +95,23 @@ export default function PostForm({ post }) {
     return () => subscription.unsubscribe();
   }, [watch, slugTransform]);
 
+  useEffect(() => {
+    if (userData) {
+      setIsAuthor(true);
+    } else {
+      const wait = setTimeout(() => {
+        if (!userData) router.replace("/login");
+      }, 500);
+      return () => clearTimeout(wait);
+    }
+  }, [userData]); //authenticate user wait 500 ms for authenticate
+
   if (!userData && !isAuthor) {
     return <AuthLoading />;
-  } {/* Auth loading  */}
+  }
+  {
+    /* Auth loading  */
+  }
 
   return (
     <>

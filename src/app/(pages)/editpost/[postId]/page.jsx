@@ -5,7 +5,7 @@ export async function generateMetadata({ params }) {
   const { postId } = await params;
   const postInformation = await service.getPost(postId);
   return {
-    title: `Editing ${postInformation.title}`,
+    title: `Editing ${postInformation?.title || "No post"}`,
   };
 }
 const page = () => {
