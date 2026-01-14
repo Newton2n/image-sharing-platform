@@ -12,6 +12,7 @@ import Image from "next/image";
 export default function PostForm({ post }) {
   const router = useRouter();
   const userData = useSelector((data) => data.auth.userData);
+  if (!userData) return router.replace("/login");
   const [imgUrl, setImgUrl] = useState();
   const {
     register,

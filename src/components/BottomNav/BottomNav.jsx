@@ -1,6 +1,10 @@
-"use client"
+"use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  faHouse,faSquarePlus,faUser} from "@fortawesome/free-solid-svg-icons";
+import {
+  faHouse,
+  faSquarePlus,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { useSelector } from "react-redux";
 import { Container } from "../index";
@@ -18,12 +22,12 @@ function BottomNav() {
     {
       name: "Add",
       icon: faSquarePlus,
-      slug: "/addpost",
+      slug: userData ? "/addpost" : "/login",
     },
     {
       name: "Profile",
       icon: faUser,
-      slug: `/profile/${userData?.$id}`,
+      slug: `/profile/${userData?.$id || "me"}`,
     },
   ];
   return (
@@ -35,14 +39,19 @@ function BottomNav() {
               className=" flex py-4 justify-center items-center  rounded"
               key={item.name}
             >
-              <Link href={item.slug} >
-                {/* <img className="h-8 w-8 m-2" src={item.icon} alt="Home" /> */}
-                <span ><FontAwesomeIcon icon={item.icon} title={item.name} aria-label={item.name} className= "text-2xl  dark:text-gray-50" /> </span>
+              <Link href={item.slug}>
+                <span>
+                  <FontAwesomeIcon
+                    icon={item.icon}
+                    title={item.name}
+                    aria-label={item.name}
+                    className="text-2xl  dark:text-gray-50"
+                  />{" "}
+                </span>
               </Link>
             </li>
           ))}
         </ul>
-   
       </nav>
     </Container>
   );

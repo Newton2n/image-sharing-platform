@@ -5,8 +5,11 @@ import { useSelector } from "react-redux";
 import { Container, Input, Button, Popup } from "../index";
 import service from "@/lib/appwrite/config";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 function EditProfile() {
+  const router = useRouter()
   const userData = useSelector((state) => state.auth.userData);
+  if(!userData) return router.replace("/login")
   const [userInformation, setUserInformation] = useState();
 
   const {
