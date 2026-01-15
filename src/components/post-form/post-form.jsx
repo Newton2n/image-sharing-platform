@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-const RTE = dynamic(() => import("../Rte"), { ssr: false });
+const RTE = dynamic(() => import("../rich-text-editor"), { ssr: false });
 import React, { useCallback, useEffect, useState } from "react";
 import { Input, Button, Select, Container } from "../index";
 import { useSelector } from "react-redux";

@@ -1,25 +1,25 @@
-import Container from "./Container/Container";
-import Footer from "./Footer/Footer";
-import Header from "./Header/Header";
-import Logo from "./Logo";
-import LogoutBtn from "./Header/LogoutBtn";
-import Button from "./Button";
+import Container from "./container/container";
+import Footer from "./footer/footer";
+import Header from "./header/header";
+import Logo from "./logo";
+import LogoutBtn from "./header/logout-btn";
+import Button from "./button";
 import Input from "./Input";
-import Select from "./Select";
+import Select from "./select";
 import PostCard from "./ui/Post-card";
-import Login from "./Login";
-import Signup from "./Signup";
-import Protected from "./AuthLayout";
-import RTE from "./Rte";
-import PostForm from "./PostForm/PostForm";
-import AuthLayout from "./AuthLayout";
+import Login from "./login";
+import Signup from "./signup";
+import Protected from "./auth-layout";
+import RTE from "./rich-text-editor";
+import PostForm from "./post-form/post-form";
+import AuthLayout from "./auth-layout";
 import DownloadBtn from "./ui/download-btn";
-import BottomNav from "./BottomNav/BottomNav";
-import ThemeToggler from "./ThemeToggler";
-import Popup from "./Popup";
-import { LenisProvider } from "./LenisProvider";
-import ReduxProvider from "./providers/Provider";
-import LogInBtn from "./ui/log-in-btn";
+import BottomNav from "./bottom-nav/bottom-nav";
+import ThemeToggler from "./theme-toggler";
+import Popup from "./pop-up";
+import { LenisProvider } from "./lenis-provider";
+import ReduxProvider from "./providers/provider";
+import LogInBtn from "./ui/login-btn";
 export {
   Container,
   Header,

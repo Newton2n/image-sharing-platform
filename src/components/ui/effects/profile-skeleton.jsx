@@ -1,11 +1,10 @@
 import React from "react";
-import SkeletonEffect from "@/components/ui//effects/SkeletonEffect"; 
+import SkeletonEffect from "@/components/ui/effects/skeleton-effect";
 
 const ProfileSkeleton = () => {
   return (
     <div className="min-h-screen antialiased p-4 sm:p-8 animate-pulse dark:bg-black">
       <div className="max-w-6xl mx-auto bg-white dark:bg-black rounded-3xl overflow-hidden">
-        
         {/* 1. Banner Skeleton */}
         <div className="h-24 sm:h-32 bg-gray-200 dark:bg-zinc-900"></div>
 
@@ -38,9 +37,8 @@ const ProfileSkeleton = () => {
 
         {/* 4. Your Post Skeleton Component */}
         <div className="p-2">
-            <SkeletonEffect count={12} />
+          <SkeletonEffect count={12} />
         </div>
-        
       </div>
     </div>
   );

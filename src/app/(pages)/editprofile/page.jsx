@@ -1,10 +1,8 @@
-import EditProfile from '@/components/Pages/EditProfile'
-import React from 'react'
+import EditProfile from "@/components/pages/edit-profile-page";
+import React from "react";
 
 const page = () => {
-  return (
-    <EditProfile/>
-  )
-}
+  return <EditProfile />;
+};
 
-export default page
+export default page;
