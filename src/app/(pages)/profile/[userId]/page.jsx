@@ -40,7 +40,7 @@ async function Profile({ params }) {
           Profile Not Found
         </h2>
         <p className="text-gray-600 dark:text-gray-400">
-          The profile you're looking for doesn't exist.
+          No profile available or log in.
         </p>
       </div>
     );

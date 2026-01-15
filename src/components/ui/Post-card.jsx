@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import service from "@/lib/appwrite/config";
-import { DownloadBtn } from "../components/index";
+import { DownloadBtn } from "../index";
 import Image from "next/image";
 
 function PostCard({ $id, title, featuredImg, authorAvatar }) {
@@ -21,8 +21,8 @@ function PostCard({ $id, title, featuredImg, authorAvatar }) {
   return (
     <Link href={`/post/${$id}`}>
       <div className="w-full  bg-white dark:bg-black rounded-3xl  ">
-        <div className="w-full relative mb-2 flex flex-col">
-          <div className="flex justify-end pb-2 pr-4 ">
+        <div className="w-full relative mb-2 flex flex-col group">
+          <div className="absolute top-2 right-0.5 flex justify-end pb-2 pr-4 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200 z-50">
             <DownloadBtn featuredImg={featuredImg} />
           </div>
 
@@ -43,8 +43,10 @@ function PostCard({ $id, title, featuredImg, authorAvatar }) {
             </span>
           </div>
         </div>
-        <div className="w-20 min-[240px]:w-28 min-[440px]:w-35 md:w-40 mb-1 ml-1 md:ml-2 overflow-hidden ">
-          <h2 className="text-[13px] truncate   dark:text-white">{title} </h2>
+        <div className=" mb-2 ml-1 md:ml-2 overflow-hidden ">
+          <h2 className="text-[10px] min-[300px]:text-xs min-[500px]:text-[13px]  truncate   dark:text-white">
+            {title}{" "}
+          </h2>
         </div>
       </div>
     </Link>
