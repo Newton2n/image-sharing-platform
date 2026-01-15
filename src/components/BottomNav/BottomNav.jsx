@@ -32,7 +32,7 @@ function BottomNav() {
   ];
   return (
     <Container>
-      <nav className="w-full  bg-white dark:bg-[#2C2C2C] fixed bottom-0 z-20 sm:hidden">
+      <nav className="w-full  bg-white dark:bg-[#2C2C2C] fixed bottom-0 z-999 sm:hidden">
         <ul className="w-full flex justify-around items-center">
           {navItems.map((item) => (
             <li

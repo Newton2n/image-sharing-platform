@@ -11,7 +11,7 @@ async function Page() {
   return (
     <div className="px-2 py-1 min-h-screen dark:bg-black">
       <Container>
-        <div className="columns-1 min-[200px]:columns-2 min-[440px]:columns-3 sm:columns-4 lg:columns-5 xl:columns-6 2xl:columns-9">
+        <main className="columns-1 min-[200px]:columns-2 min-[440px]:columns-3 sm:columns-4 lg:columns-5 xl:columns-6 2xl:columns-9">
           {allPost?.map((post) => (
             <div
               key={post.$id}
@@ -28,7 +28,7 @@ async function Page() {
               />
             </div>
           ))}
-        </div>
+        </main>
       </Container>
     </div>
   );
