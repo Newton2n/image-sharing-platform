@@ -22,7 +22,7 @@ function BottomNav() {
     {
       name: "Add",
       icon: faSquarePlus,
-      slug: userData ? "/addpost" : "/login",
+      slug: userData ? "/add-post" : "/login",
     },
     {
       name: "Profile",

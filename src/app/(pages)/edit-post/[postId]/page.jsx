@@ -1,4 +1,4 @@
-import EditPost from "@/components/Pages/EditPost";
+import EditPost from "@/components/pages/edit-post-page";
 import React from "react";
 import service from "@/lib/appwrite/config";
 export async function generateMetadata({ params }) {

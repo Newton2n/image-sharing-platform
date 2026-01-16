@@ -35,7 +35,7 @@ function Header() {
 
     {
       name: "Add Post",
-      slug: "/addpost",
+      slug: "/add-post",
       active: authStatus,
     },
     {
@@ -68,8 +68,8 @@ function Header() {
                     href={item.slug}
                     className={
                       isActive
-                        ? "inline-bock px-6 py-2 text-red-500 rounded-2xl cursor-pointer  "
-                        : "inline-bock px-6 py-2   rounded-full cursor-pointer"
+                        ? "inline-block px-6 py-2 text-red-500 rounded-2xl cursor-pointer  "
+                        : "inline-block px-6 py-2   rounded-full cursor-pointer"
                     }
                   >
                     {item.name}

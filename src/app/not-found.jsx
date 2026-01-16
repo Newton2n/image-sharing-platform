@@ -98,7 +98,7 @@ const NotFoundPage = () => {
           className="mt-6 text-gray-900 dark:text-gray-100 font-semibold text-nowrap"
           style={{ fontSize: "clamp(1rem, 4vw, 2.5rem)" }}
         >
-          O0PS! SORRY⚠️PAGE NOT FOUND
+          OOPS! SORRY⚠️PAGE NOT FOUND
         </h2>
 
         <div className="flex gap-x-3 md:gap-x-6 mt-4">

@@ -7,7 +7,7 @@ import { Button } from "..";
 function EditDeleteButton({ post }) {
   const router = useRouter();
   const editPostBtn = () => {
-    router.push(`/editpost/${post?.$id}`);
+    router.push(`/edit-post/${post?.$id}`);
   };
 
   const deletePost = async () => {
