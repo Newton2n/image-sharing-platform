@@ -14,7 +14,7 @@ function LogOutBtn() {
     dispatch(logout());
     if (deleteSession) router.replace("/login");
   };
-  return <Button className="hover:bg-red-700 bg-red-500 text-white" children={"Logout"} onClick={logOutBtn} />;
+  return <Button className="bg-red-400/15 text-red-500/40 dark:text-white/40 hover:scale-[1.03] transition-transform duration-200 ease-out" children={"Logout"} onClick={logOutBtn} />;
 }
 
 export default LogOutBtn;

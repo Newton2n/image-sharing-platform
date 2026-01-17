@@ -1,6 +1,6 @@
 import { Sora } from "next/font/google";
 import "./globals.css";
-import { ReduxProvider, Header, Footer } from "@/components/index";
+import { ReduxProvider, Header, Footer ,BottomNav} from "@/components/index";
 import AppInitializer from "@/components/providers/app-initializer";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -25,6 +25,8 @@ export default function RootLayout({ children }) {
             <Analytics />
             <Header />
             {children}
+            {/* bottom navbar for mobile devices */}
+            <BottomNav />
             <Footer />
           </AppInitializer>
         </ReduxProvider>

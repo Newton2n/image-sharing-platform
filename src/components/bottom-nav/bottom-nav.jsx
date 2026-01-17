@@ -7,7 +7,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { useSelector } from "react-redux";
-import { Container } from "../index";
 import Link from "next/link";
 function BottomNav() {
   const userData = useSelector((data) => data.auth.userData);
@@ -31,10 +30,10 @@ function BottomNav() {
     },
   ];
   return (
-    <Container>
-      <nav className="w-full md:hidden">
-        <div className="w-full fixed bottom-0 z-999 bg-white/10 dark:bg-neutral-950/30 backdrop-blur-lg">
-          <ul className="w-full flex justify-around items-center">
+    
+      
+        <div className="w-full md:hidden fixed bottom-0 left-0 right-0 z-[999] bg-white/10 dark:bg-neutral-950/30 backdrop-blur-lg">
+          <ul className="w-full flex justify-around items-center min-h-12">
             {navItems.map((item) => (
               <li
                 className=" flex py-4 justify-center items-center  rounded"
@@ -46,7 +45,7 @@ function BottomNav() {
                       icon={item.icon}
                       title={item.name}
                       aria-label={item.name}
-                      className="text-2xl text-black  dark:text-white"
+                      className="text-2xl text-black   dark:text-white"
                     />{" "}
                   </span>
                 </Link>
@@ -54,8 +53,7 @@ function BottomNav() {
             ))}
           </ul>
         </div>
-      </nav>
-    </Container>
+     
   );
 }
 

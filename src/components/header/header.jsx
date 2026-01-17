@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
+import { useEffect, useState } from "react";
 import {
   Logo,
-  Container,
   LogoutBtn,
-  BottomNav,
   Button,
   ThemeToggler,
 } from "../index";
@@ -45,12 +44,21 @@ function Header() {
       active: authStatus,
     },
   ];
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="py-3 shadow bg-white dark:bg-[#2C2C2C]">
-      <Container>
-        {/* bottom navbar for mobile devices8 */}
-        <BottomNav />
+    <header
+      className={`w-full py-3  sticky top-0 z-[999] shadow-sm dark:shadow-white/20 transition-[background-color,box-shadow] duration-500 ease-out  ${
+        scrolled
+          ? "bg-white/10 dark:bg-neutral-950/30 backdrop-blur-lg "
+          : "dark:bg-black bg-white"
+      }`}
+    >
         <nav className="flex   items-center">
           <div className="mr-4 ml-3">
             <Link href="/">
@@ -62,7 +70,7 @@ function Header() {
               item.active ? (
                 <li
                   key={item.name}
-                  className=" font-normal hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800 rounded-2xl max-md:hidden"
+                  className=" font-normal dark:text-white  rounded-3xl max-md:hidden"
                 >
                   <Link
                     href={item.slug}
@@ -90,7 +98,7 @@ function Header() {
                   <Button
                     onClick={() => router.replace("/login")}
                     children={"Login"}
-                    className={"bg-red-500 text-white hover:bg-red-600"}
+                    className={"bg-red-400/15 text-red-500/40 dark:text-white/40 hover:scale-[1.03] transition-transform duration-200 ease-out"}
                   />
                 )}
               </li>
@@ -98,7 +106,6 @@ function Header() {
             {/*this code mean if authStatus is true  then the && next part will work or nope*/}
           </ul>
         </nav>
-      </Container>
     </header>
   );
 }
