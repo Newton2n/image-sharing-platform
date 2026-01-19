@@ -11,6 +11,7 @@ const nextConfig = {
         pathname: '/v1/storage/buckets/**',
       },
     ],
+    
   },
 };
 
