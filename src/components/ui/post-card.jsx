@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import service from "@/lib/appwrite/config";
-import { DownloadBtn } from "../index";
+import { ImageDownloadBtn } from "../index";
 import Image from "next/image";
 
 function PostCard({ $id, title, featuredImg, authorAvatar }) {
@@ -23,7 +23,7 @@ function PostCard({ $id, title, featuredImg, authorAvatar }) {
       <div className="w-full  bg-white dark:bg-black rounded-3xl  ">
         <div className="w-full relative mb-2 flex flex-col group">
           <div className="absolute top-2 right-0.5 flex justify-end pb-2 pr-4 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200 z-50">
-            <DownloadBtn featuredImg={featuredImg} />
+            <ImageDownloadBtn featuredImg={featuredImg} />
           </div>
 
           {imgUrl && (

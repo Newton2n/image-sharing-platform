@@ -13,7 +13,7 @@ import Protected from "./auth-layout";
 import RTE from "./rich-text-editor";
 import PostForm from "./post-form/post-form";
 import AuthLayout from "./auth-layout";
-import DownloadBtn from "./ui/download-btn";
+import ImageDownloadBtn from "./ui/image-download-btn";
 import BottomNav from "./bottom-nav/bottom-nav";
 import ThemeToggler from "./theme-toggler";
 import Popup from "./pop-up";
@@ -36,7 +36,7 @@ export {
   RTE,
   PostForm,
   AuthLayout,
-  DownloadBtn,
+  ImageDownloadBtn,
   BottomNav,
   SkeletonEffect,
   ThemeToggler,

@@ -1,82 +1,94 @@
-import { Container } from "@/components/index";
-import service from "@/lib/appwrite/config";
-import parse from "html-react-parser";
 import Image from "next/image";
+import service from "@/lib/appwrite/config";
 import EditDeleteButton from "@/components/ui/edit-delete-button";
-import AuthorPicture from "@/components/ui/author-picture";
-import Link from "next/link";
-//meta data
-export async function generateMetadata({ params }) {
-  const { postId } = await params;
-  const postData = await service.getPost(postId);
-  if (!postData) {
-    return {
-      title: "Post Not Found",
-      description: "The requested post could not be found.",
-    };
-  }
-  return {
-    title: postData?.title,
-    description: postData?.description,
-  };
-}
+import AuthorCard from "@/components/ui/author-card";
+import PostTitle from "@/components/ui/post-title";
+import { ImageDownloadBtn } from "@/components";
+import { ShieldCheck } from "lucide-react";
+import PostContent from "@/components/ui/post-content";
 
-//main page
 export default async function Page({ params }) {
   const { postId } = await params;
-  const post = await service.getPost(postId);
-  const imgUrl = await service.fileView(post?.featuredImg);
 
-  if (post) {
-    return (
-      <>
-        {" "}
-        <Container>
-          <div className="w-full py-10 px-10 flex max-sm:flex-col dark:bg-black">
-            <div className="relative w-full md:w-2/3 mb-6 md:mb-0 mr-8">
+  const post = await service.getPost(postId);
+  console.log(post);
+  const imgUrl = await service.fileView(post.featuredImg);
+
+  if (!post) return null;
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white transition-colors duration-300 font-sans selection:bg-red-500 selection:text-white 2xl:text-[18px]">
+      <main className="w-full max-w-[1920px] mx-auto p-4 sm:p-6 md:p-12 lg:p-16">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-10 xl:gap-20 items-start">
+          {/* Left Column: Media Section */}
+          <div className="w-full lg:w-[55%] xl:w-[60%]  lg:sticky lg:top-24">
+            <div className="relative group   sm:rounded-[2.5rem] shadow-xl md:shadow-2xl transition-all duration-500 aspect-square sm:aspect-auto">
               {imgUrl && (
                 <Image
                   src={imgUrl}
-                  alt={post?.title}
-                  height={500}
-                  width={500}
-                  quality={100}
-                  className="rounded-xl w-full h-auto object-cover border"
+                  alt={post.title}
+                  width={400}
+                  height={400}
+                  priority
+                  className="w-full h-auto rounded-2xl "
                 />
               )}
-              {/* Author Profile picture and
-              
-              */}
-              <Link href={`/profile/${post?.userId}`}>
-                <AuthorPicture
-                  userId={post?.userId}
-                  className={
-                    "h-3 w-3 min-[200px]:h-5 min-[200px]:w-5 min-[300px]:h-9 min-[300px]:w-9 sm:w-13 sm:h-13 md:w-15 md:h-15 absolute top-2 left-2 min-[300px]:top-4 min-[300px]:left-4 cursor-pointer rounded-full inset-shadow-sm"
-                  }
-                />
-              </Link>
-              {/* Edit/Delete Buttons only for author */}
-              <EditDeleteButton post={post} />{" "}
-            </div>
-            <div className="w-1/3 mb-6 ">
-              <div className="flex flex-col ">
-                <span className="font-extrabold  text-gray-300">Title</span>
-                <h1 className="text-2xl  dark:text-gray-100">{post?.title}</h1>
-                <p className=" bg-gray-400 my-3 w-full h-[1.5px]"></p>
-              </div>
-              <div className="text-xl dark:bg-gray-600 p-1 rounded">
-                <span className="font-bold  text-gray-300 mb-2">
-                  Description
-                </span>
-                {/* parse content of tinymce*/}
-                {parse(post?.content)}
+              <div className="absolute top-2 right-2 md:hidden">
+                {" "}
+                <EditDeleteButton post={post} />
               </div>
             </div>
           </div>
-        </Container>
-      </>
-    );
-  } else {
-    return null;
-  }
+
+          {/* Right Column: Content & Actions */}
+          <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col space-y-6 sm:space-y-10 px-1 sm:px-0">
+            <div className="flex items-center justify-between mb-10 pb-6 border-b border-zinc-200/60 dark:border-white/5">
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white ring-4 ring-white dark:ring-black">
+                    <ShieldCheck size={14} />
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-[10px] font-black uppercase tracking-[.25em] text-red-500">
+                    Verified Asset
+                  </h2>
+                  <p className="text-[10px] text-zinc-400 font-medium tracking-tight">
+                    Appwrite Cloud Storage • ID: {post.$id.slice(0, 8)}
+                  </p>
+                </div>
+              </div>
+              <ImageDownloadBtn featuredImg={post?.featuredImg} />
+            </div>
+
+            <div className="space-y-3 sm:space-y-6">
+              <PostTitle title={post?.title} />
+
+              {/* Content parsed from Appwrite */}
+              <PostContent content={post?.content} />
+            </div>
+
+            <div className="pt-2 border-t border-gray-100 dark:border-zinc-800">
+              <div className="flex items-center justify-between p-3 sm:p-5 rounded-2xl bg-gray-50 dark:bg-zinc-900/40 border border-gray-100 dark:border-white/5">
+                <AuthorCard post={post} />
+              </div>
+            </div>
+
+            {/* Edit/Delete Actions for Author */}
+            <div className="hidden md:block">
+              {" "}
+              <EditDeleteButton post={post} />
+            </div>
+          </div>
+        </div>
+      </main>
+      {/* 3. Global Footer Style Subtle Detail */}
+      <footer className="mt-20 py-10 text-center border-t border-zinc-200 dark:border-white/5">
+        {" "}
+        <p className="text-[11px] font-medium text-zinc-400 tracking-widest uppercase">
+          End of Content
+        </p>
+      </footer>
+    </div>
+  );
 }
