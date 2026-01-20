@@ -11,7 +11,6 @@ export default async function Page({ params }) {
   const { postId } = await params;
 
   const post = await service.getPost(postId);
-  console.log(post);
   const imgUrl = await service.fileView(post.featuredImg);
 
   if (!post) return null;
