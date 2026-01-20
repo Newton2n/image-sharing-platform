@@ -2,7 +2,7 @@ import React from "react";
 
 function PostTitle({
   title,
-  readTime = "5 min read",
+  readTime = "1 min read",
   badge = "Featured",
 }) {
   if (!title) return null;

@@ -137,7 +137,7 @@ export default function PostForm({ post }) {
               {...register("slug", { required: true })}
             />
             <RTE
-              label={"Content (only text)"}
+              label={"Content (less than 355 characters)"}
               control={control}
               {...register("content", {
                 required: true,

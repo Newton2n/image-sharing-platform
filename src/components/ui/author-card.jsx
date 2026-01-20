@@ -44,7 +44,7 @@ async function AuthorCard({ post = null }) {
           
           <div className="flex flex-col min-w-0">
             <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-red-600 dark:text-red-500">
-              Postor
+              Post Creator
             </span>
             <p className="truncate text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
               {fullName}

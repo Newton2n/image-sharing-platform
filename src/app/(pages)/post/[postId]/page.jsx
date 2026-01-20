@@ -4,18 +4,7 @@ import EditDeleteButton from "@/components/ui/edit-delete-button";
 import AuthorCard from "@/components/ui/author-card";
 import PostTitle from "@/components/ui/post-title";
 import { ImageDownloadBtn } from "@/components";
-import {
-  Download,
-  Share2,
-  MoreHorizontal,
-  ArrowLeft,
-  Edit3,
-  Trash2,
-  CheckCircle2,
-  Loader2,
-  AwardIcon,
-  ShieldCheck,
-} from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import PostContent from "@/components/ui/post-content";
 
 export default async function Page({ params }) {
@@ -29,22 +18,6 @@ export default async function Page({ params }) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white transition-colors duration-300 font-sans selection:bg-red-500 selection:text-white 2xl:text-[18px]">
-      {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md px-2 sm:px-4 py-2 sm:py-3 flex items-center justify-between border-b border-gray-100 dark:border-zinc-800">
-        <button className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-full transition-colors">
-          <ArrowLeft size={20} className="sm:w-6 sm:h-6" />
-        </button>
-
-        <div className="flex items-center gap-1 sm:gap-2">
-          <button className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-full transition-colors">
-            <Share2 size={18} className="sm:w-5 sm:h-5" />
-          </button>
-          <button className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-full transition-colors">
-            <MoreHorizontal size={20} className="sm:w-5 sm:h-5" />
-          </button>
-        </div>
-      </nav>
-
       <main className="w-full max-w-[1920px] mx-auto p-4 sm:p-6 md:p-12 lg:p-16">
         <div className="flex flex-col lg:flex-row gap-6 sm:gap-10 xl:gap-20 items-start">
           {/* Left Column: Media Section */}
@@ -55,7 +28,7 @@ export default async function Page({ params }) {
                   src={imgUrl}
                   alt={post.title}
                   width={400}
-                  height={500}
+                  height={400}
                   priority
                   className="w-full h-auto rounded-2xl "
                 />

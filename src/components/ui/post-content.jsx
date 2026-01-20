@@ -26,21 +26,13 @@ function PostContent({ content }) {
           className="
             prose prose-zinc max-w-none
             dark:prose-invert
-            
-            /* Body Text */
             prose-p:text-zinc-600 dark:prose-p:text-zinc-400
             prose-p:leading-[1.8] prose-p:text-[1.05rem]
-            
-            /* Headings - Using Black weight for authority */
             prose-headings:font-black prose-headings:tracking-tight 
             prose-headings:text-zinc-900 dark:prose-headings:text-white
-            
-            /* Accents - Bringing in the Red */
             prose-a:text-red-500 prose-a:no-underline hover:prose-a:underline
             prose-blockquote:border-l-red-500 prose-blockquote:bg-red-500/[0.03]
             prose-blockquote:py-2 prose-blockquote:rounded-r-xl
-            
-            /* Details */
             prose-strong:text-zinc-900 dark:prose-strong:text-zinc-100
             prose-img:rounded-3xl prose-img:shadow-lg
           "

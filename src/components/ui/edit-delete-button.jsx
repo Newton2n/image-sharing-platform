@@ -45,7 +45,7 @@ function EditDeleteButton({ post }) {
         {/* Edit Button */}
         <button
           onClick={handleEdit}
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-bold text-xs sm:text-sm rounded-xl hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all active:scale-95 border border-transparent dark:border-zinc-800"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-bold text-xs sm:text-sm rounded-xl hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all active:scale-95 border border-transparent dark:border-zinc-800 cursor-pointer"
         >
           <Edit3 size={16} />
           <span>Edit </span>
@@ -55,7 +55,7 @@ function EditDeleteButton({ post }) {
         <button
           onClick={handleDeleteClick}
           disabled={isDeleting}
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-red-50 dark:bg-red-500/10 text-red-500 font-bold text-xs sm:text-sm rounded-xl hover:bg-red-500 hover:text-white transition-all active:scale-95 disabled:opacity-50"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-red-50 dark:bg-red-500/10 text-red-500 font-bold text-xs sm:text-sm rounded-xl hover:bg-red-500 hover:text-white transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
         >
           {isDeleting ? (
             <Loader2 size={16} className="animate-spin" />
@@ -69,7 +69,7 @@ function EditDeleteButton({ post }) {
       {/* Integrated Your Custom Popup */}
       <Popup
         isOpen={showPopup}
-        title="Delete Asset?"
+        title="Delete Post"
         message="This action cannot be undone. This will permanently remove the post and the associated image."
         confirmText="Delete Now"
         cancelText="Cancel"

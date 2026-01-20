@@ -41,7 +41,7 @@ function EditPost() {
   }, [userData, post]);
   if (!isAuthor) return <AuthLoading />;
   return (
-    <div className="w-full py-8 bg-black">
+    <div className="w-full py-8 bg-white dark:bg-black">
       <Container>
         <PostForm post={post} />
       </Container>
