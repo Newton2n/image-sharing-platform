@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import AuthLoading from "../ui/loading/auth-loading";
+import { Upload } from "lucide-react";
 export default function PostForm({ post }) {
   const router = useRouter();
   const userData = useSelector((data) => data.auth.userData);
@@ -41,19 +42,35 @@ export default function PostForm({ post }) {
   }, [post, setValue]);
 
   const submit = async (data) => {
+    //for edit post
     if (post) {
-      const file = data.image[0]
-        ? await service.fileUpload(data.image[0])
-        : null;
+      try {
+        const newImg = data?.image[0];
 
-      await service.deleteFile(post.featuredImg);
+        //update post with new Image
+        if (newImg) {
+          const upLoadFile = await service.fileUpload(data.image[0]);
 
-      const updatePost = await service.updatePost(post.$id, {
-        ...data,
-        featuredImg: file ? file.$id : null,
-      });
-      if (updatePost) router.push(`/post/${updatePost.$id} `);
+          const updatePost = await service.updatePost(post.$id, {
+            ...data,
+            featuredImg: upLoadFile?.$id,
+          });
+          if (updatePost) {
+            await service.deleteFile(post.featuredImg);
+            router.push(`/post/${updatePost.$id}`);
+          }
+        } else {
+          // update post without new Image
+          const updatePost = await service.updatePost(post.$id, {
+            ...data,
+          });
+          if (updatePost) router.push(`/post/${updatePost.$id}`);
+        }
+      } catch (err) {
+        throw err;
+      }
     } else {
+      //For create new post
       try {
         const fileUpload = await service.fileUpload(data.image[0]);
         const fileId = fileUpload.$id;
@@ -149,15 +166,15 @@ export default function PostForm({ post }) {
               label={"Image (under 2 MB)"}
               type={"file"}
               className={"mb-5 mt-2  "}
-              {...register("image", { required: true })}
-              accept="image/png, image/jpg, image/jpeg, image/gif"
+              {...register("image", { required: !post })}
+              accept="image/png, image/jpg, image/jpeg, image/gif ,image.webp"
             />
             <Select
               label={"Status"}
               options={["Active", "Inactive"]}
               className={"mb-5   "}
               value={"Active"}
-              {...register("status", { required: true })}
+              {...register("status", { required: false })}
             />
             {isDirty && (
               <Button

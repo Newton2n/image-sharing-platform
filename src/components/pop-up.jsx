@@ -14,6 +14,7 @@ export default function Popup({
   if (!isOpen) return null;
 
   return (
+    
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/0 ">
       <div className="bg-white dark:bg-black rounded-2xl shadow-xl p-6 w-[90%] max-w-md text-center">
         <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">

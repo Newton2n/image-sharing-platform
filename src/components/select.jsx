@@ -5,7 +5,7 @@ function Select({ options=[], label, className = "", ref, ...props }) {
 
   return (
     <div className="w-full flex flex-col">
-      {label && <label className="font-bold  pl-3 mb-2" htmlFor={id}> {label}</label>}
+      {label && <label className="font-bold  pl-3 mb-2 text-black dark:text-[#D1D5DC]" htmlFor={id}> {label}</label>}
       <select
         {...props}
         id={id}
