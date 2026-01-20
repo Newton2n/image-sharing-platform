@@ -50,18 +50,21 @@ export default function PostForm({ post }) {
         //update post with new Image
         if (newImg) {
           const upLoadFile = await service.fileUpload(data.image[0]);
-          if (upLoadFile) await service.deleteFile(post.featuredImg);
+
           const updatePost = await service.updatePost(post.$id, {
             ...data,
             featuredImg: upLoadFile?.$id,
           });
-          if (updatePost) router.push(`/post/${updatePost.$id} `);
+          if (updatePost) {
+            await service.deleteFile(post.featuredImg);
+            router.push(`/post/${updatePost.$id}`);
+          }
         } else {
           // update post without new Image
           const updatePost = await service.updatePost(post.$id, {
             ...data,
           });
-          if (updatePost) router.push(`/post/${updatePost.$id} `);
+          if (updatePost) router.push(`/post/${updatePost.$id}`);
         }
       } catch (err) {
         throw err;
