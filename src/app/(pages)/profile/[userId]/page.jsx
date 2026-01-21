@@ -21,14 +21,20 @@ export async function generateMetadata({ params }) {
 async function Profile({ params }) {
   const { userId } = await params;
 
-  const [profileResponse, postsResponse] = await Promise.all([
+  const [profileResponse, userPostsResponse] = await Promise.all([
     service.getProfileInformationQuery(userId),
     service.getPostsQuery(userId),
-  ]); //owner profile details and post response 
+  ]); //owner profile details and post response
 
   const accountDetails = profileResponse?.rows[0]; //owner profile details
-  
-  const userPost = postsResponse?.rows || []; //owner post details
+  const userPost = await Promise.all(
+    (userPostsResponse?.rows || []).map(async (post) => ({
+      ...post,
+      imgUrl: post.featuredImg
+        ? await service.fileView(post.featuredImg)
+        : null,
+    })),
+  ); //owner post details and img Url
   const profileImgUrl =
     accountDetails?.profileImageId &&
     (await service.fileView(accountDetails?.profileImageId)); //owner profile avatar url
@@ -72,14 +78,14 @@ async function Profile({ params }) {
           <p className="text-gray-700 dark:text-white max-w-lg mx-auto mb-4 px-2">
             {accountDetails?.about}
           </p>
-          <ProfileActionButtons postUserId={userId}/>
+          <ProfileActionButtons postUserId={userId} />
         </div>
 
         <div className="flex justify-center border-t  border-gray-100 dark:border-gray-700 py-4 px-4 sticky top-0 bg-white dark:bg-black z-10 ">
           <div className="flex space-x-4">
             <button className="flex items-center space-x-2 px-4 py-2 rounded-full font-medium transition-all bg-gray-800 text-white ">
               <FontAwesomeIcon icon={faBorderAll} />
-              <span>{`${accountDetails.fullName}'s post` }</span>
+              <span>{`${accountDetails.fullName}'s post`}</span>
               <span className="text-[13px] ml-1 opacity-75">
                 ({userPost?.length})
               </span>

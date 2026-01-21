@@ -1,24 +1,12 @@
-"use client";
-import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import service from "@/lib/appwrite/config";
 import { ImageDownloadBtn } from "../index";
 import Image from "next/image";
 
-function PostCard({ $id, title, featuredImg, authorAvatar }) {
-  const [imgUrl, setImgUrl] = useState();
+async function PostCard({ $id, title, imgUrl, authorAvatar ,featuredImg}) {
 
-  useEffect(() => {
-    let isMounted = true;
-    service.fileView(featuredImg).then((url) => {
-      if (isMounted) setImgUrl(url);
-    });
-    return () => {
-      isMounted = false;
-    };
-  }, [featuredImg]);
 
   return (
+    <div>
     <Link href={`/post/${$id}`}>
       <div className="w-full  bg-white dark:bg-black rounded-3xl  ">
         <div className="w-full relative mb-2 flex flex-col group">
@@ -30,9 +18,15 @@ function PostCard({ $id, title, featuredImg, authorAvatar }) {
             <Image
               src={imgUrl}
               alt={title}
-              height={400}
-              width={200}
-              loading="eager"
+              width={400}
+              height={600}
+              sizes="(max-width: 199px) 100vw,
+                     (max-width: 439px) 50vw,
+                      (max-width: 639px) 33vw,
+                      (max-width: 1023px) 25vw,
+                     (max-width: 1279px) 20vw,
+                      (max-width: 1535px) 16vw,
+                      11vw"
               className="rounded-2xl shadow-md dark:shadow dark:shadow-white/50  hover:opacity-50"
             />
           )}
@@ -50,6 +44,7 @@ function PostCard({ $id, title, featuredImg, authorAvatar }) {
         </div>
       </div>
     </Link>
+    </div>
   );
 }
 
