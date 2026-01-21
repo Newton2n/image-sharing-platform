@@ -28,12 +28,13 @@ async function Profile({ params }) {
 
   const accountDetails = profileResponse?.rows[0]; //owner profile details
   const userPost = await Promise.all(
-    userPostsResponse.rows.map(async (post) => ({
+    (userPostsResponse?.rows || []).map(async (post) => ({
       ...post,
-      imgUrl: await service.fileView(post.featuredImg),
+      imgUrl: post.featuredImg
+        ? await service.fileView(post.featuredImg)
+        : null,
     })),
   ); //owner post details and img Url
-
   const profileImgUrl =
     accountDetails?.profileImageId &&
     (await service.fileView(accountDetails?.profileImageId)); //owner profile avatar url

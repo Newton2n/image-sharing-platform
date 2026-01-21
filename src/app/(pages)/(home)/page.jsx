@@ -6,14 +6,16 @@ export const metadata = {
   description: "Explore Images from the world",
 };
 async function Page() {
-  const allPostResponse = await service.getPosts();//Fetching all post response
+  const allPostResponse = await service.getPosts(); //Fetching all post response
 
-  const allPost =await Promise.all(
-    allPostResponse.rows.map(async(post)=>({
+  const allPost = await Promise.all(
+    (allPostResponse?.rows || []).map(async (post) => ({
       ...post,
-      imgUrl : await service.fileView(post.featuredImg)
-    }))
-  );// all post with post image Url
+      imgUrl: post?.featuredImg
+        ? await service.fileView(post.featuredImg)
+        : null,
+    })),
+  ); // all post with post image Url
   return (
     <div className="px-2 py-1 min-h-screen dark:bg-black">
       <Container>
