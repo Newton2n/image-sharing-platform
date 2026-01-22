@@ -2,16 +2,15 @@
 const nextConfig = {
   reactCompiler: true,
   images: {
-    qualities: [100, 75,35],
+    qualities: [100, 75, 35],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'sgp.cloud.appwrite.io',
-        port: '',
-        pathname: '/v1/storage/buckets/**',
+        protocol: "https",
+        hostname: "sgp.cloud.appwrite.io",
+        port: "",
+        pathname: "/v1/storage/buckets/**",
       },
     ],
-    
   },
 };
 
