@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import {Ellipsis} from "lucide-react"
 const ProfileActionButtons = ({ postUserId }) => {
   const loginAccountDetails = useSelector((state) => state.auth.userData); //logged in user details
 
@@ -28,7 +27,7 @@ const ProfileActionButtons = ({ postUserId }) => {
       )}
 
       <button className="p-3 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition duration-150 shadow-md ">
-        <FontAwesomeIcon icon={faEllipsis} />
+        <Ellipsis />
       </button>
     </div>
   );

@@ -36,8 +36,7 @@ function BottomNav() {
               <span>
                 <item.icon
                   size={25}
-                  className={`transition-all duration-200 
-    ${
+                  className={`transition-all duration-200 ${
       pathName === item.slug
         ? "fill-black text-black dark:fill-white dark:text-white"
         : "fill-none text-black dark:text-white"
