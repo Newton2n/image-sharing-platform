@@ -2,8 +2,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { themeToggler, setTheme } from "../store/themeSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLightbulb, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { SunDim ,Moon } from "lucide-react";
 function ThemeToggler({ className = "" }) {
   const currentTheme = useSelector((state) => state.theme.mood);
   const dispatch = useDispatch();
@@ -32,7 +31,9 @@ function ThemeToggler({ className = "" }) {
           } text-xl cursor-pointer `}
         >
           {" "}
-          <FontAwesomeIcon icon={faLightbulb} style={{ color: "#FFD43B" }} />
+          {/* <FontAwesomeIcon icon={faLightbulb} style={{ color: "#FFD43B" }} /> */}
+          <SunDim
+          className="text-white"/>
         </span>
         <span
           className={`${
@@ -40,7 +41,8 @@ function ThemeToggler({ className = "" }) {
           } text-xl cursor-pointer`}
         >
           {" "}
-          <FontAwesomeIcon icon={faMoon} />
+          {/* <FontAwesomeIcon icon={faMoon} /> */}
+          <Moon/>
         </span>
       </button>
     </div>

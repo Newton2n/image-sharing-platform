@@ -1,11 +1,9 @@
 import service from "@/lib/appwrite/config";
 import { Container, PostCard } from "@/components/index";
 import AuthorPicture from "@/components/ui/author-picture";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBorderAll } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import ProfileActionButtons from "@/components/ui/profile-action-buttons";
-
+import {GripHorizontal } from "lucide-react"
 export async function generateMetadata({ params }) {
   const { userId } = await params;
   const profileResponse = await service.getProfileInformationQuery(userId);
@@ -84,8 +82,8 @@ async function Profile({ params }) {
         <div className="flex justify-center border-t  border-gray-100 dark:border-gray-700 py-4 px-4 sticky top-0 bg-white dark:bg-black z-10 ">
           <div className="flex space-x-4">
             <button className="flex items-center space-x-2 px-4 py-2 rounded-full font-medium transition-all bg-gray-800 text-white ">
-              <FontAwesomeIcon icon={faBorderAll} />
-              <span>{`${accountDetails.fullName}'s post`}</span>
+              <GripHorizontal />
+              <span>{`${accountDetails.fullName}'s post` }</span>
               <span className="text-[13px] ml-1 opacity-75">
                 ({userPost?.length})
               </span>
