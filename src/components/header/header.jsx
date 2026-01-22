@@ -1,19 +1,15 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
-import {
-  Logo,
-  LogoutBtn,
-  Button,
-  ThemeToggler,
-} from "../index";
+import { Logo, LogoutBtn, Button, ThemeToggler } from "../index";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 function Header() {
   const authStatus = useSelector((state) => state.auth.activeStatus);
   const userData = useSelector((state) => state.auth.userData);
-  const isActive = false;
+  const pathName = usePathname();
   const router = useRouter();
   const navItems = [
     {
@@ -44,6 +40,7 @@ function Header() {
       active: authStatus,
     },
   ];
+
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
@@ -59,53 +56,55 @@ function Header() {
           : "dark:bg-black bg-white"
       }`}
     >
-        <nav className="flex   items-center">
-          <div className="mr-4 ml-3">
-            <Link href="/">
-              <Logo />
-            </Link>
-          </div>
-          <ul className="flex ml-auto items-center justify-center ">
-            {navItems.map((item) =>
-              item.active ? (
-                <li
-                  key={item.name}
-                  className=" font-normal dark:text-white  rounded-3xl max-md:hidden"
+      <nav className="flex   items-center">
+        <div className="mr-4 ml-3">
+          <Link href="/">
+            <Logo />
+          </Link>
+        </div>
+        <ul className="flex ml-auto items-center justify-center ">
+          {navItems.map((item) =>
+            item.active ? (
+              <li
+                key={item.name}
+                className=" font-normal dark:text-white  rounded-3xl max-md:hidden px-2"
+              >
+                <Link
+                  href={item.slug}
+                  className={
+                    item.slug === pathName
+                      ? "inline-block px-5 py-2 text-gray-600 dark:text-gray-400 bg-white/40 dark:bg-white/20 backdrop-blur-xl border border-white/50 dark:border-white/30 shadow-xl rounded-full transition-all duration-300 ring-1 ring-black/5 scale-105"
+                      : "inline-block px-6 hover:px-9 py-2  text-black dark:text-white  dark:hover:text-white hover:bg-white/30 dark:hover:bg-white/10 hover:backdrop-blur-md hover:shadow-md hover:scale-103 rounded-full transition-all duration-600"
+                  }
                 >
-                  <Link
-                    href={item.slug}
-                    className={
-                      isActive
-                        ? "inline-block px-6 py-2 text-red-500 rounded-2xl cursor-pointer  "
-                        : "inline-block px-6 py-2   rounded-full cursor-pointer"
-                    }
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ) : null
-            )}
-            {
-              <li>
-                <ThemeToggler className={"px-3 "} />
+                  {item.name}
+                </Link>
               </li>
-            }
-            {
-              <li className="ml-2 mr-3">
-                {userData ? (
-                  <LogoutBtn />
-                ) : (
-                  <Button
-                    onClick={() => router.replace("/login")}
-                    children={"Login"}
-                    className={"bg-red-400/15 text-red-500/40 dark:text-white/40 hover:scale-[1.03] transition-transform duration-200 ease-out"}
-                  />
-                )}
-              </li>
-            }
-            {/*this code mean if authStatus is true  then the && next part will work or nope*/}
-          </ul>
-        </nav>
+            ) : null,
+          )}
+          {
+            <li>
+              <ThemeToggler className={"px-3 "} />
+            </li>
+          }
+          {
+            <li className="ml-2 mr-3">
+              {userData ? (
+                <LogoutBtn />
+              ) : (
+                <Button
+                  onClick={() => router.replace("/login")}
+                  children={"Login"}
+                  className={
+                    "bg-red-400/15 text-red-500/40 dark:text-white/40 hover:scale-[1.03] transition-transform duration-200 ease-out"
+                  }
+                />
+              )}
+            </li>
+          }
+          {/*this code mean if authStatus is true  then the && next part will work or nope*/}
+        </ul>
+      </nav>
     </header>
   );
 }
