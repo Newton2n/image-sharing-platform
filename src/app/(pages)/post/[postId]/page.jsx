@@ -25,7 +25,7 @@ export default async function Page({ params }) {
               {imgUrl && (
                 <Image
                   src={imgUrl}
-                  alt={post.title}
+                  alt={post?.title}
                   width={400}
                   height={400}
                   priority
