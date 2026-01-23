@@ -26,13 +26,13 @@ export default function Popup({
             <Button
               onClick={onCancel}
               children={cancelText}
-              className=" px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition  "
+              className=" px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition cursor-pointer"
             />
           )}
           <Button
             onClick={onConfirm}
             children={confirmText}
-            className="px-4 py-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition "
+            className="px-4 py-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition cursor-pointer"
           />
         </div>
       </div>

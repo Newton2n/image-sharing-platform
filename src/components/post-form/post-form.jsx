@@ -73,11 +73,9 @@ export default function PostForm({ post }) {
         setError(
           error?.message || "An unexpected error occurred. Please try again",
         );
-        if (error) {
-          setTimeout(() => {
-            setError("");
-          }, 4500);
-        }
+        setTimeout(() => {
+          setError("");
+        }, 4500);
       } finally {
         setIsLoading(false);
       }
@@ -103,7 +101,7 @@ export default function PostForm({ post }) {
         );
         if (error) {
           setTimeout(() => {
-            setError(false);
+            setError("");
           }, 4500);
         }
       } finally {

@@ -68,6 +68,10 @@ function EditDeleteButton({ post }) {
         </Button>
       </div>
 
+      {showPopup && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity" />
+      )}
+
       {/* Integrated Your Custom Popup */}
       <Popup
         isOpen={showPopup}
@@ -78,11 +82,6 @@ function EditDeleteButton({ post }) {
         onConfirm={confirmDelete}
         onCancel={() => setShowPopup(false)}
       />
-
-      {/* Optional: Simple Backdrop for the Popup if your Popup component doesn't have one */}
-      {showPopup && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity" />
-      )}
     </>
   );
 }
