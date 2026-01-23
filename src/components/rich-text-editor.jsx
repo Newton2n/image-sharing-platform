@@ -1,5 +1,5 @@
-"use client"
-import  { useMemo } from "react";
+"use client";
+import { useMemo } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export default function RTE({ name, control, label }) {
   const themeMood = useSelector((state) => state.theme.mood);
 
-const { skin, contentCss } = useMemo(() => {
+  const { skin, contentCss } = useMemo(() => {
     if (themeMood === "dark") {
       return { skin: "oxide-dark", contentCss: "dark" };
     }
@@ -16,7 +16,6 @@ const { skin, contentCss } = useMemo(() => {
 
   return (
     <div className="w-full">
- 
       {label && (
         <label className="inline-block mb-2 pl-2 font-bold text-gray-700 dark:text-gray-300">
           {label}
@@ -31,12 +30,12 @@ const { skin, contentCss } = useMemo(() => {
               key={themeMood}
               onEditorChange={(data) => onChange(data)}
               value={value}
-              apiKey="ij0wxiglm84zt0qz8xooyy7q5ouaqu9pptcw3a1svv3fwvjz"
+              apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY || ""}
               init={{
                 height: 300,
 
                 // --- Dark Mode Configuration ---
-                skin: skin ,
+                skin: skin,
                 content_css: contentCss,
                 // -------------------------------
 
@@ -55,15 +54,12 @@ const { skin, contentCss } = useMemo(() => {
                   "fullscreen",
                   "insertdatetime",
                   "table",
-                  "code",
                   "help",
                   "wordcount",
-                  "anchor",
                 ],
                 toolbar:
-                  "undo redo | blocks | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+                  "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
                 content_style:
-                 
                   "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
               }}
             />
