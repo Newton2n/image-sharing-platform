@@ -9,12 +9,15 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import AuthLoading from "../ui/loading/auth-loading";
-import { Upload } from "lucide-react";
+import ButtonLoader from "../ui/loading/button-loader";
+import InputError from "../ui/error/input-error";
 export default function PostForm({ post }) {
   const router = useRouter();
   const userData = useSelector((data) => data.auth.userData);
   const [isAuthor, setIsAuthor] = useState(false);
   const [imgUrl, setImgUrl] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const {
     register,
     control,
@@ -28,7 +31,6 @@ export default function PostForm({ post }) {
       title: post?.title || "",
       slug: post?.$id || "",
       content: post?.content || "",
-      status: post?.status || "Active",
     },
   });
 
@@ -38,10 +40,11 @@ export default function PostForm({ post }) {
     setValue("title", post.title);
     setValue("content", post.content);
     setValue("slug", post.slug);
-    setValue("status", post.status);
   }, [post, setValue]);
 
   const submit = async (data) => {
+    setIsLoading(true);
+    setError("");
     //for edit post
     if (post) {
       try {
@@ -66,8 +69,15 @@ export default function PostForm({ post }) {
           });
           if (updatePost) router.push(`/post/${updatePost.$id}`);
         }
-      } catch (err) {
-        throw err;
+      } catch (error) {
+        setError(
+          error?.message || "An unexpected error occurred. Please try again",
+        );
+        setTimeout(() => {
+          setError("");
+        }, 4500);
+      } finally {
+        setIsLoading(false);
       }
     } else {
       //For create new post
@@ -83,10 +93,19 @@ export default function PostForm({ post }) {
             userId: userData.$id,
           });
 
-          if (createPost) router.replace(`/post/${createPost.$id}`);
+          if (createPost) router.replace(`/post/${createPost?.$id}`);
         }
-      } catch (err) {
-        throw err;
+      } catch (error) {
+        setError(
+          error?.message || "An unexpected error occurred. Please try again",
+        );
+        if (error) {
+          setTimeout(() => {
+            setError("");
+          }, 4500);
+        }
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -133,11 +152,14 @@ export default function PostForm({ post }) {
   return (
     <>
       <Container>
+        <span className=" w-full flex justify-center fixed top-20 z-50">
+          <InputError message={error} />
+        </span>
         <form
           className=" flex pr-4 pl-4 flex-col sm:w-full md:w-3/4 mx-auto dark:bg-black"
           onSubmit={handleSubmit(submit)}
         >
-          <div className="left ">
+          <div className="left">
             <Input
               label={"Title"}
               type={"text"}
@@ -145,6 +167,7 @@ export default function PostForm({ post }) {
               placeholder={"Title  "}
               {...register("title", { required: true })}
             />
+            {errors?.title && <InputError message={"Enter Title"} />}
             <Input
               disabled
               label={"Slug"}
@@ -154,12 +177,13 @@ export default function PostForm({ post }) {
               {...register("slug", { required: true })}
             />
             <RTE
-              label={"Content (less than 355 characters)"}
+              label={"Description (less than 355 characters)"}
               control={control}
               {...register("content", {
                 required: true,
               })}
             />
+            {errors?.content && <InputError message={"write description"} />}
           </div>
           <div className="right  flex flex-col  items-center">
             <Input
@@ -167,31 +191,42 @@ export default function PostForm({ post }) {
               type={"file"}
               className={"mb-5 mt-2  "}
               {...register("image", { required: !post })}
-              accept="image/png, image/jpg, image/jpeg, image/gif ,image.webp"
+              accept="image/png, image/jpg, image/jpeg, image/gif, image/webp"
             />
-            <Select
-              label={"Status"}
-              options={["Active", "Inactive"]}
-              className={"mb-5   "}
-              value={"Active"}
-              {...register("status", { required: false })}
-            />
+            {errors?.image && <InputError message={"Upload Image"} />}
             {isDirty && (
               <Button
+                disabled={isLoading}
                 type={"submit"}
-                className={"bg-red-500 text-white w-[25%] my-3 py-1"}
+                className={`bg-red-500 text-white my-3  flex items-center justify-center gap-2 ${isLoading ? "cursor-not-allowed opacity-70" : "cursor-pointer"}`}
               >
-                {post ? "Update" : "upload"}
+                {post ? (
+                  isLoading ? (
+                    <>
+                      {" "}
+                      <ButtonLoader /> Updating
+                    </>
+                  ) : (
+                    "Update"
+                  )
+                ) : isLoading ? (
+                  <>
+                    {" "}
+                    <ButtonLoader /> Uploading
+                  </>
+                ) : (
+                  "Upload"
+                )}
               </Button>
             )}
 
             {imgUrl && (
               <Image
                 src={imgUrl}
-                alt={post.title}
-                height={500}
-                width={500}
-                quality={100}
+                alt={post?.title}
+                width={400}
+                height={600}
+                sizes="(max-width: 768px) 75vw, (max-width: 1200px) 50vw, 400px"
                 className="rounded-xl w-3/4 "
               />
             )}

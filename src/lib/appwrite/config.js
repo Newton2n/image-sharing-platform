@@ -47,7 +47,7 @@ export class Service {
 
       return result;
     } catch (error) {
-      console.log("error occurred in update post ", error);
+      throw error
     }
   }
   async deletePost(rowId) {
@@ -59,7 +59,7 @@ export class Service {
       });
       return result;
     } catch (error) {
-      console.log(error);
+      throw error
     }
   }
   async getPost(rowId) {
@@ -72,7 +72,7 @@ export class Service {
 
       return result;
     } catch (error) {
-      console.log(error);
+      throw error
     }
   }
   async getPosts() {
@@ -84,7 +84,7 @@ export class Service {
 
       return result;
     } catch (error) {
-      console.log("error occurred in get all post :", error);
+      throw error
     }
   }
   async getPostsQuery(id) {
@@ -99,7 +99,7 @@ export class Service {
         return result;
       }
     } catch (error) {
-      console.log("error occurred in get all post :", error);
+      throw error
     }
   }
   async fileUpload(file) {
@@ -112,7 +112,7 @@ export class Service {
 
       return promise;
     } catch (error) {
-      console.log(error);
+      throw error 
     }
   }
   async deleteFile(fileId) {
@@ -124,7 +124,7 @@ export class Service {
 
       return result;
     } catch (error) {
-      console.log("error occurred in delete file ", error);
+      throw error
     }
   }
 
@@ -137,7 +137,7 @@ export class Service {
 
       return result;
     } catch (error) {
-      console.log(error);
+      throw error
     }
   }
   async fileDownload(fileId) {
@@ -153,8 +153,8 @@ export class Service {
         link.download = "";
         link.click();
       }
-    } catch (err) {
-      console.log("error in download file", err);
+    } catch (error) {
+      throw error
     }
   }
   async createProfileInformationPost({
@@ -187,7 +187,7 @@ export class Service {
    
       return result;
     } catch (error) {
-      console.log("error in uploading profile details");
+      throw error
     }
   }
   async updateProfileInformationPost(
@@ -221,7 +221,7 @@ export class Service {
 
       return result;
     } catch (error) {
-      console.log("error occurred in update post ", error);
+      throw error
     }}
    async getProfileInformationQuery(id) {
     const columnName = "userId";
@@ -235,7 +235,7 @@ export class Service {
         return result;
       }
     } catch (error) {
-      console.log("error occurred in get all post :", error);
+      throw error
     }
   }
 }

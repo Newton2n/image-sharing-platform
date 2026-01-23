@@ -25,7 +25,7 @@ export default async function Page({ params }) {
               {imgUrl && (
                 <Image
                   src={imgUrl}
-                  alt={post.title}
+                  alt={post?.title}
                   width={400}
                   height={400}
                   priority
@@ -53,7 +53,7 @@ export default async function Page({ params }) {
                     Verified Asset
                   </h2>
                   <p className="text-[10px] text-zinc-400 font-medium tracking-tight">
-                    Appwrite Cloud Storage • ID: {post.$id.slice(0, 8)}
+                    Appwrite Cloud Storage • ID: {post?.$id?.slice(0, 8)}{" "}
                   </p>
                 </div>
               </div>

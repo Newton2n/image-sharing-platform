@@ -5,22 +5,24 @@ import authservice from "@/lib/appwrite/auth";
 import service from "@/lib/appwrite/config";
 import { login } from "../store/authSlice";
 import { useDispatch } from "react-redux";
-
 import { useForm } from "react-hook-form";
-import { themeSlice } from "../store/themeSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ButtonLoader from "./ui/loading/button-loader";
+import InputError from "./ui/error/input-error";
 function Signup() {
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
   const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
   const createAccount = async (data) => {
-    setError(null);
+    setError("");
+    setIsLoading(true);
     try {
       const newAccount = await authservice.createAccount(data);
 
@@ -36,7 +38,9 @@ function Signup() {
         return router.replace("/");
       }
     } catch (error) {
-      setError("error occurred", error.message);
+      setError(`${error.message || "Can not create account try again"} `);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -61,7 +65,7 @@ function Signup() {
             Sign In
           </Link>
         </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+        {error && <InputError message={error || "Something went wrong "} />}
         <form onSubmit={handleSubmit(createAccount)}>
           <div className="space-y-5">
             <Input
@@ -71,9 +75,7 @@ function Signup() {
                 required: true,
               })}
             />
-            {errors.name && (
-              <p className="text-red-600"> {errors.name.message} </p>
-            )}
+            {errors.name && <InputError message={"Please enter your name"} />}
             <Input
               label={"Email:"}
               placeholder={"Enter your email address"}
@@ -83,15 +85,13 @@ function Signup() {
                 validate: {
                   matchPattern: (value) =>
                     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i.test(
-                      value
+                      value,
                     ) || "enter a valid email address",
                 },
               })}
             />
 
-            {errors.email && (
-              <p className="text-red-600"> {errors.email.message} </p>
-            )}
+            {errors.email && <InputError message={"Enter a valid email"} />}
             <Input
               label={"Password:"}
               placeholder={"Enter password"}
@@ -101,20 +101,33 @@ function Signup() {
                 validate: {
                   matchPattern: (value) =>
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(
-                      value
+                      value,
                     ) ||
                     "enter a strong password at least 8 characters must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number",
                 },
               })}
             />
             {errors.password && (
-              <p className="text-red-600"> {errors.password.message} </p>
+              <InputError
+                message={
+                  "Enter a strong password, at least 8 characters must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"
+                }
+              />
             )}
             <Button
               type="submit"
-              children={"Create Account"}
-              className={"w-full mt-4 cursor-pointer bg-red-500 text-white"}
-            />
+              disabled={isLoading}
+              className={`w-full mt-4  bg-red-500 text-white flex items-center justify-center gap-2 ${isLoading ? "opacity-70 cursor-not-allowed" : "cursor-pointer hover:bg-red-700"}`}
+            >
+              {isLoading ? (
+                <>
+                  {" "}
+                  <ButtonLoader /> Creating
+                </>
+              ) : (
+                "Create account"
+              )}
+            </Button>
           </div>
         </form>
       </div>
