@@ -9,12 +9,13 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import AuthLoading from "../ui/loading/auth-loading";
-import { Upload } from "lucide-react";
+import ButtonLoader from "../ui/loading/button-loader";
 export default function PostForm({ post }) {
   const router = useRouter();
   const userData = useSelector((data) => data.auth.userData);
   const [isAuthor, setIsAuthor] = useState(false);
   const [imgUrl, setImgUrl] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     control,
@@ -42,6 +43,7 @@ export default function PostForm({ post }) {
   }, [post, setValue]);
 
   const submit = async (data) => {
+    setIsLoading(true);
     //for edit post
     if (post) {
       try {
@@ -68,6 +70,8 @@ export default function PostForm({ post }) {
         }
       } catch (err) {
         throw err;
+      } finally {
+        setIsLoading(false);
       }
     } else {
       //For create new post
@@ -83,10 +87,12 @@ export default function PostForm({ post }) {
             userId: userData.$id,
           });
 
-          if (createPost) router.replace(`/post/${createPost.$id}`);
+          if (createPost) router.replace(`/post/${createPost?.$id}`);
         }
       } catch (err) {
         throw err;
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -178,10 +184,27 @@ export default function PostForm({ post }) {
             />
             {isDirty && (
               <Button
+                disabled={isLoading}
                 type={"submit"}
-                className={"bg-red-500 text-white w-[25%] my-3 py-1"}
+                className={`bg-red-500 text-white my-3  flex items-center justify-center gap-2 ${isLoading ? "cursor-not-allowed opacity-70" : "cursor-pointer"}`}
               >
-                {post ? "Update" : "upload"}
+                {post ? (
+                  isLoading ? (
+                    <>
+                      {" "}
+                      <ButtonLoader /> Updating
+                    </>
+                  ) : (
+                    "Update"
+                  )
+                ) : isLoading ? (
+                  <>
+                    {" "}
+                    <ButtonLoader /> Uploading
+                  </>
+                ) : (
+                  "Upload"
+                )}
               </Button>
             )}
 
@@ -189,9 +212,9 @@ export default function PostForm({ post }) {
               <Image
                 src={imgUrl}
                 alt={post.title}
-                height={500}
-                width={500}
-                quality={100}
+                width={400}
+                height={600}
+                sizes="(max-width: 768px) 75vw, (max-width: 1200px) 50vw, 400px"
                 className="rounded-xl w-3/4 "
               />
             )}

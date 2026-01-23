@@ -91,7 +91,7 @@ function Signup() {
               })}
             />
 
-            {errors.email && <InputError message={"Enter a valid email "} />}
+            {errors.email && <InputError message={"Enter a valid email"} />}
             <Input
               label={"Password:"}
               placeholder={"Enter password"}

@@ -53,7 +53,6 @@ export class AuthService {
   async logOut() {
     try {
       await this.account.deleteSessions(); // Deletes the all device's session
-      console.log("User logged out successfully.");
     } catch (error) {
       throw error;
     }
