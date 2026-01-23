@@ -42,12 +42,10 @@ const { skin, contentCss } = useMemo(() => {
 
                 menubar: true,
                 plugins: [
-                  "image",
                   "advlist",
                   "autolink",
                   "lists",
                   "link",
-                  "image",
                   "charmap",
                   "preview",
                   "anchor",
@@ -56,7 +54,6 @@ const { skin, contentCss } = useMemo(() => {
                   "code",
                   "fullscreen",
                   "insertdatetime",
-                  "media",
                   "table",
                   "code",
                   "help",
@@ -64,7 +61,7 @@ const { skin, contentCss } = useMemo(() => {
                   "anchor",
                 ],
                 toolbar:
-                  "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+                  "undo redo | blocks | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
                 content_style:
                  
                   "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
