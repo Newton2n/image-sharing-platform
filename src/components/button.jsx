@@ -12,7 +12,7 @@ function Button(
 }
 ){
   return (
-    <button className={ `cursor-pointer px-2 py-2 rounded-lg ${bgColor} ${textColor} ${className}`}{...props}>
+    <button className={ `px-2 py-2 rounded-lg transition-all duration-200${bgColor} ${textColor} ${className}`}{...props}>
     {children}
     </button>
   )

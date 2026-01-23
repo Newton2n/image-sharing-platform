@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 import authservice from "@/lib/appwrite/auth";
 import { login as authLogin, logout } from "@/store/authSlice";
 import { Input, Button, Logo } from "./index";
@@ -8,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ButtonLoader from "./ui/loading/button-loader";
 function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -24,20 +24,25 @@ function Login() {
   } = useForm();
 
   const [error, setError] = useState(null);
-
+  const [isLoading,setIsLoading] = useState(false)
   const login = async (data) => {
     setError("");
+    setIsLoading(true)
     try {
       const session = await authservice.login(data);
 
       if (session) {
         const userData = await authservice.getCurrentUser();
 
-        if (userData) dispatch(authLogin(userData));
-        router.replace("/");
+        if (userData) {
+          dispatch(authLogin(userData));
+          router.replace("/");
+        }
       }
     } catch (error) {
-      setError(`${error.message}: error occurred in log in system`);
+      setError(`${error.message || "Error occurred in log in system"}`);
+    }finally{
+      setIsLoading(false)
     }
   };
   return (
@@ -72,14 +77,14 @@ function Login() {
                 validate: {
                   matchPattern: (value) =>
                     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i.test(
-                      value
+                      value,
                     ) || "enter a valid email address",
                 },
               })}
             />
             {errors.email && (
               <p className="text-red-600" role="alert">
-                {errors.email.message}
+                {errors.email.message || "Enter a valid email"}
               </p>
             )}
           </div>
@@ -93,7 +98,7 @@ function Login() {
                 validate: {
                   matchPattern: (value) =>
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(
-                      value
+                      value,
                     ) ||
                     "enter a strong password at least 8 characters must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number",
                 },
@@ -101,14 +106,16 @@ function Login() {
             />
             {errors.password && (
               <p className="text-red-500" role="alert">
-                {errors.password.message}
+                {errors.password.message ||"Password is not valid"}
               </p>
             )}
             <Button
               type="submit"
-              children={"Submit"}
-              className="w-full bg-red-500 text-white"
-            />
+              disabled ={isLoading}
+              className={`w-full bg-red-500 text-white flex items-center justify-center gap-2 ${isLoading ? "opacity-70 cursor-not-allowed":"cursor-pointer hover:bg-red-700"}`}
+            >
+              {isLoading ? (<><ButtonLoader/> Logging on</>):"Login"}
+            </Button>
           </div>
         </form>
       </div>
