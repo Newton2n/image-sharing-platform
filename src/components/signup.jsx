@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ButtonLoader from "./ui/loading/button-loader";
+import InputError from "./ui/error/input-error";
 function Signup() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -64,7 +65,7 @@ function Signup() {
             Sign In
           </Link>
         </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+        {error && <InputError message={error ||"Something went wrong "}/>}
         <form onSubmit={handleSubmit(createAccount)}>
           <div className="space-y-5">
             <Input
@@ -75,10 +76,7 @@ function Signup() {
               })}
             />
             {errors.name && (
-              <p className="text-red-600">
-                {" "}
-                {errors.name.message || "Enter your name"}{" "}
-              </p>
+              <InputError message={errors.message ||"Please enter your name"}/>
             )}
             <Input
               label={"Email:"}
@@ -96,10 +94,9 @@ function Signup() {
             />
 
             {errors.email && (
-              <p className="text-red-600">
-                {" "}
-                {errors.email.message || "Enter a valid email"}{" "}
-              </p>
+                
+                <InputError message={errors.message ||"Enter a valid email"}/>
+             
             )}
             <Input
               label={"Password:"}
@@ -117,10 +114,7 @@ function Signup() {
               })}
             />
             {errors.password && (
-              <p className="text-red-600">
-                {" "}
-                {errors.password.message || "Enter a strong password"}{" "}
-              </p>
+              <InputError message={errors.message ||"Enter a strong password"}/>
             )}
             <Button
               type="submit"

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ButtonLoader from "./ui/loading/button-loader";
+import InputError from "./ui/error/input-error";
 function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -65,7 +66,7 @@ function Login() {
             Sign Up
           </Link>
         </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+        {error &&<InputError message={error ||"Something went wrong "}/>}
         <form onSubmit={handleSubmit(login)} className="mt-8">
           <div className="space-y-5">
             <Input
@@ -83,9 +84,7 @@ function Login() {
               })}
             />
             {errors.email && (
-              <p className="text-red-600" role="alert">
-                {errors.email.message || "Enter a valid email"}
-              </p>
+              <InputError message={errors.message ||"Provide a valid  email address"}/>
             )}
           </div>
           <div className="space-y-5 my-3">
@@ -105,9 +104,7 @@ function Login() {
               })}
             />
             {errors.password && (
-              <p className="text-red-500" role="alert">
-                {errors.password.message ||"Password is not valid"}
-              </p>
+              <InputError message={errors.message ||"Password is invalid"}/>
             )}
             <Button
               type="submit"
