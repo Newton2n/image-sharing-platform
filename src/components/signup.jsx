@@ -65,7 +65,7 @@ function Signup() {
             Sign In
           </Link>
         </p>
-        {error && <InputError message={error ||"Something went wrong "}/>}
+        {error && <InputError message={error || "Something went wrong "} />}
         <form onSubmit={handleSubmit(createAccount)}>
           <div className="space-y-5">
             <Input
@@ -75,9 +75,7 @@ function Signup() {
                 required: true,
               })}
             />
-            {errors.name && (
-              <InputError message={errors.message ||"Please enter your name"}/>
-            )}
+            {errors.name && <InputError message={"Please enter your name"} />}
             <Input
               label={"Email:"}
               placeholder={"Enter your email address"}
@@ -93,11 +91,7 @@ function Signup() {
               })}
             />
 
-            {errors.email && (
-                
-                <InputError message={errors.message ||"Enter a valid email"}/>
-             
-            )}
+            {errors.email && <InputError message={"Enter a valid email "} />}
             <Input
               label={"Password:"}
               placeholder={"Enter password"}
@@ -114,7 +108,11 @@ function Signup() {
               })}
             />
             {errors.password && (
-              <InputError message={errors.message ||"Enter a strong password"}/>
+              <InputError
+                message={
+                  "Enter a strong password, at least 8 characters must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"
+                }
+              />
             )}
             <Button
               type="submit"

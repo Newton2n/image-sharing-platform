@@ -25,10 +25,10 @@ function Login() {
   } = useForm();
 
   const [error, setError] = useState(null);
-  const [isLoading,setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const login = async (data) => {
     setError("");
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const session = await authservice.login(data);
 
@@ -42,8 +42,8 @@ function Login() {
       }
     } catch (error) {
       setError(`${error.message || "Error occurred in log in system"}`);
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -66,7 +66,7 @@ function Login() {
             Sign Up
           </Link>
         </p>
-        {error &&<InputError message={error ||"Something went wrong "}/>}
+        {error && <InputError message={error || "Something went wrong "} />}
         <form onSubmit={handleSubmit(login)} className="mt-8">
           <div className="space-y-5">
             <Input
@@ -84,7 +84,7 @@ function Login() {
               })}
             />
             {errors.email && (
-              <InputError message={errors.message ||"Provide a valid  email address"}/>
+              <InputError message={"Provide a valid  email address"} />
             )}
           </div>
           <div className="space-y-5 my-3">
@@ -104,14 +104,24 @@ function Login() {
               })}
             />
             {errors.password && (
-              <InputError message={errors.message ||"Password is invalid"}/>
+              <InputError
+                message={
+                  "Password is invalid ,Enter a strong password that you have signup, at least 8 characters must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"
+                }
+              />
             )}
             <Button
               type="submit"
-              disabled ={isLoading}
-              className={`w-full bg-red-500 text-white flex items-center justify-center gap-2 ${isLoading ? "opacity-70 cursor-not-allowed":"cursor-pointer hover:bg-red-700"}`}
+              disabled={isLoading}
+              className={`w-full bg-red-500 text-white flex items-center justify-center gap-2 ${isLoading ? "opacity-70 cursor-not-allowed" : "cursor-pointer hover:bg-red-700"}`}
             >
-              {isLoading ? (<><ButtonLoader/> Logging on</>):"Login"}
+              {isLoading ? (
+                <>
+                  <ButtonLoader /> Logging on
+                </>
+              ) : (
+                "Login"
+              )}
             </Button>
           </div>
         </form>
