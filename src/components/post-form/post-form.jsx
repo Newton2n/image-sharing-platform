@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 const RTE = dynamic(() => import("../rich-text-editor"), { ssr: false });
 import React, { useCallback, useEffect, useState } from "react";
-import { Input, Button, Select, Container } from "../index";
+import { Input, Button, Container } from "../index";
 import { useSelector } from "react-redux";
 import service from "@/lib/appwrite/config";
 import { useForm } from "react-hook-form";
@@ -23,7 +23,6 @@ export default function PostForm({ post }) {
     control,
     watch,
     handleSubmit,
-    getValues,
     setValue,
     formState: { errors, isDirty },
   } = useForm({
@@ -153,7 +152,7 @@ export default function PostForm({ post }) {
     <>
       <Container>
         <span className=" w-full flex justify-center fixed top-20 z-50">
-          <InputError message={error} />
+          <InputError message={error} className="py-2"/>
         </span>
         <form
           className=" flex pr-4 pl-4 flex-col sm:w-full md:w-3/4 mx-auto dark:bg-black"
@@ -167,13 +166,13 @@ export default function PostForm({ post }) {
               placeholder={"Title  "}
               {...register("title", { required: true })}
             />
-            {errors?.title && <InputError message={"Enter Title"} />}
+            {errors?.title && <InputError message={"Enter Title"} className="py-2"/>}
             <Input
-              disabled
+              disabled ={true}
               label={"Slug"}
               type={"text"}
-              className={"mb-5 mt-2 "}
-              placeholder={"Slug auto generated"}
+              className={"mb-5 mt-2 cursor-not-allowed opacity-50"}
+              placeholder={"Slug auto generated from title"}
               {...register("slug", { required: true })}
             />
             <RTE
@@ -183,17 +182,28 @@ export default function PostForm({ post }) {
                 required: true,
               })}
             />
-            {errors?.content && <InputError message={"write description"} />}
+            {errors?.content && <InputError message={"write description"} className="py-2"/>}
           </div>
           <div className="right  flex flex-col  items-center">
             <Input
               label={"Image (under 2 MB)"}
               type={"file"}
-              className={"mb-5 mt-2  "}
-              {...register("image", { required: !post })}
+              className={"mb-5 mt-2 cursor-pointer"}
+              {...register("image", {
+                required: !post,
+                validate: {
+                  lessThan2MB: (files) => {
+                    if (!files || files.length === 0) return true;
+                   return files[0]?.size < 2000000 ||
+                      "File size must be less than 2MB";
+                  },
+                },
+              })}
               accept="image/png, image/jpg, image/jpeg, image/gif, image/webp"
             />
-            {errors?.image && <InputError message={"Upload Image"} />}
+            {errors?.image && (
+              <InputError message={errors.image.message || "Upload Image"} className="py-2"/>
+            )}
             {isDirty && (
               <Button
                 disabled={isLoading}

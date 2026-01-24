@@ -59,8 +59,13 @@ export default function RTE({ name, control, label }) {
                 ],
                 toolbar:
                   "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
-                content_style:
-                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                content_style: `
+                  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&display=swap');
+                  body { 
+                    font-family: 'Sora', sans-serif; 
+                    font-size: 14px; 
+                  }
+                `,
               }}
             />
           )}
