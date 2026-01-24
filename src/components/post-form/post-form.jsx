@@ -164,10 +164,23 @@ export default function PostForm({ post }) {
               type={"text"}
               className={"mb-5 mt-2"}
               placeholder={"Title  "}
-              {...register("title", { required: true })}
+              {...register("title", {
+                required: "Title is required",
+                minLength: {
+                  value: 5,
+                  message: "Title is too short (min 5 characters)",
+                },
+                maxLength: {
+                  value: 70,
+                  message: "Title is too long for SEO (max 70 characters)",
+                },
+              })}
             />
             {errors?.title && (
-              <InputError message={"Enter Title"} className="py-2" />
+              <InputError
+                message={errors?.title.message || "Enter Title"}
+                className="py-2"
+              />
             )}
             <Input
               disabled={true}
@@ -181,7 +194,7 @@ export default function PostForm({ post }) {
               label={"Description (less than 355 characters)"}
               control={control}
               {...register("content", {
-                required: true,
+                required: "Description is required",
                 validate: {
                   maxLength: (value) => {
                     // 1. Remove HTML tags to count only the actual text
