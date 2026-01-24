@@ -96,7 +96,7 @@ function Header() {
                   onClick={() => router.replace("/login")}
                   children={"Login"}
                   className={
-                    "bg-red-400/15 text-red-500/40 dark:text-white/40 hover:scale-[1.03] transition-transform duration-200 ease-out"
+                    "bg-red-400/15 text-red-500/40 dark:text-white/40 hover:scale-[1.03] transition-transform duration-200 ease-out cursor-pointer"
                   }
                 />
               )}
