@@ -16,8 +16,10 @@ function LogOutBtn() {
     setIsLoading(true);
     try {
       const deleteSession = await authservice.logOut();
-      dispatch(logout());
-      if (deleteSession) router.replace("/login");
+      if (deleteSession) {
+        dispatch(logout());
+        router.replace("/login");
+      }
     } catch (error) {
       setError(error);
     } finally {
