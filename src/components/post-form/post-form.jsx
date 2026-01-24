@@ -152,7 +152,7 @@ export default function PostForm({ post }) {
     <>
       <Container>
         <span className=" w-full flex justify-center fixed top-20 z-50">
-          <InputError message={error} className="py-2"/>
+          <InputError message={error} className="py-2" />
         </span>
         <form
           className=" flex pr-4 pl-4 flex-col sm:w-full md:w-3/4 mx-auto dark:bg-black"
@@ -166,9 +166,11 @@ export default function PostForm({ post }) {
               placeholder={"Title  "}
               {...register("title", { required: true })}
             />
-            {errors?.title && <InputError message={"Enter Title"} className="py-2"/>}
+            {errors?.title && (
+              <InputError message={"Enter Title"} className="py-2" />
+            )}
             <Input
-              disabled ={true}
+              disabled={true}
               label={"Slug"}
               type={"text"}
               className={"mb-5 mt-2 cursor-not-allowed opacity-50"}
@@ -180,9 +182,25 @@ export default function PostForm({ post }) {
               control={control}
               {...register("content", {
                 required: true,
+                validate: {
+                  maxLength: (value) => {
+                    // 1. Remove HTML tags to count only the actual text
+                    const plainText = value.replace(/<[^>]*>/g, "").trim();
+
+                    return (
+                      plainText.length <= 355 ||
+                      `Character limit exceeded: ${plainText.length}/355`
+                    );
+                  },
+                },
               })}
             />
-            {errors?.content && <InputError message={"write description"} className="py-2"/>}
+            {errors?.content && (
+              <InputError
+                message={errors?.content.message || "write description"}
+                className="py-2"
+              />
+            )}
           </div>
           <div className="right  flex flex-col  items-center">
             <Input
@@ -194,15 +212,20 @@ export default function PostForm({ post }) {
                 validate: {
                   lessThan2MB: (files) => {
                     if (!files || files.length === 0) return true;
-                   return files[0]?.size < 2000000 ||
-                      "File size must be less than 2MB";
+                    return (
+                      files[0]?.size < 2000000 ||
+                      "File size must be less than 2MB"
+                    );
                   },
                 },
               })}
               accept="image/png, image/jpg, image/jpeg, image/gif, image/webp"
             />
             {errors?.image && (
-              <InputError message={errors.image.message || "Upload Image"} className="py-2"/>
+              <InputError
+                message={errors.image.message || "Upload Image"}
+                className="py-2"
+              />
             )}
             {isDirty && (
               <Button
