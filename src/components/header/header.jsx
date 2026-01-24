@@ -57,7 +57,7 @@ function Header() {
       }`}
     >
       <nav className="flex   items-center">
-        <div className="mr-4 ml-3">
+        <div className="mr-4 ml-3 max-[260px]:hidden">
           <Link href="/">
             <Logo />
           </Link>
