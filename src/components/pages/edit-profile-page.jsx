@@ -7,6 +7,8 @@ import service from "@/lib/appwrite/config";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import AuthLoading from "../ui/loading/auth-loading";
+import ButtonLoader from "../ui/loading/button-loader";
+import InputError from "../ui/error/input-error";
 function EditProfile() {
   const router = useRouter();
   const userData = useSelector((state) => state.auth.userData);
@@ -53,7 +55,7 @@ function EditProfile() {
       if (!userData?.$id) return;
 
       const information = await service.getProfileInformationQuery(
-        userData?.$id
+        userData?.$id,
       );
       const row = information?.rows[0];
       setUserInformation(row);
@@ -74,9 +76,11 @@ function EditProfile() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [submitResult, setSubmitResult] = useState(false);
   const [submitResultMessage, setSubmitResultMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   //profile updated profile information
   const onProfileSubmit = async (data) => {
+    setIsLoading(true);
     try {
       await service.updateProfileInformationPost(userInformation?.$id, {
         ...data,
@@ -88,6 +92,7 @@ function EditProfile() {
       setSubmitResult(true);
       setSubmitResultMessage("Something went wrong");
     } finally {
+      setIsLoading(false);
       setTimeout(() => {
         setSubmitResult(false);
       }, 2000);
@@ -130,7 +135,7 @@ function EditProfile() {
     } catch (error) {
       setSubmitResult(true);
 
-      setSubmitResultMessage("Something went wrong");
+      setSubmitResultMessage(error);
     } finally {
       setTimeout(() => {
         setSubmitResult(false);
@@ -156,7 +161,7 @@ function EditProfile() {
   const openImgPopUp = () => setImgPopup(true);
   const openResetPopUp = () => setResetPopup(true);
 
-  if(!userData) return <AuthLoading/>
+  if (!userData) return <AuthLoading />;
 
   return (
     <Container>
@@ -238,13 +243,75 @@ function EditProfile() {
               if (e.key === "Enter" && resetPopup) e.preventDefault();
             }}
           >
-            <Input label="Name" {...register("fullName", { required: true })} />
+            <Input
+              label="Name"
+              {...register("fullName", {
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: "Name must be at least 3 characters long",
+                },
+                pattern: {
+                  value: /^[A-Za-z\s]+$/,
+                  message: "Name should only contain letters and spaces",
+                },
+              })}
+            />
             {errors.fullName && (
-              <p className="text-red-600">{errors.fullName.message}</p>
+              <InputError
+                message={errors.fullName.message || "Please use your real name"}
+              />
             )}
 
-            <Input label="About" {...register("about")} />
-            <Input label="Username" {...register("userName")} />
+            <Input
+              label="About"
+              {...register("about", {
+                required: "Please tell us a little about yourself",
+                minLength: {
+                  value: 15,
+                  message: "Your bio should be at least 15 characters",
+                },
+                maxLength: {
+                  value: 255,
+                  message: "Bio cannot exceed 255 characters",
+                },
+              })}
+            />
+            {errors.about && (
+              <InputError
+                message={
+                  errors.about.message ||
+                  "Your bio should be at least 20 characters and less than 255 characters"
+                }
+              />
+            )}
+            <Input
+              label="Username"
+              {...register("userName", {
+                required: "Username is required",
+                minLength: {
+                  value: 3,
+                  message: "Username must be at least 3 characters",
+                },
+                maxLength: {
+                  value: 20,
+                  message: "Username cannot exceed 20 characters",
+                },
+                pattern: {
+                  value: /^[a-zA-Z0-9_]+$/,
+                  message:
+                    "Usernames can only contain letters, numbers, and underscores",
+                },
+              })}
+            />
+            {errors.userName && (
+              <InputError
+                message={
+                  errors.userName.message ||
+                  "Usernames can only contain letters, numbers, and underscores"
+                }
+              />
+            )}
             <Input label="Phone Number" {...register("phoneNumber")} />
 
             <Input
@@ -260,20 +327,32 @@ function EditProfile() {
               })}
             />
             {errors.email && (
-              <p className="text-red-600">{errors.email.message}</p>
+              <InputError
+                message={errors.email.message || "Enter a valid email address"}
+              />
             )}
 
             {showButtons && !resetPopup && (
               <div className="w-full flex justify-end gap-3 mb-3">
                 <Button
-                  className="bg-gray-100 text-black"
+                  className="bg-gray-100 text-black cursor-pointer"
                   type="button"
                   onClick={openResetPopUp}
                 >
                   Reset
                 </Button>
-                <Button type="submit" className="bg-red-500 text-white">
-                  Update
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className={`bg-red-500 text-white flex items-center justify-center gap-2 ${isLoading ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
+                >
+                  {isLoading ? (
+                    <>
+                      Updating <ButtonLoader />
+                    </>
+                  ) : (
+                    "Update"
+                  )}
                 </Button>
               </div>
             )}
