@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import AuthLoading from "../ui/loading/auth-loading";
 import ButtonLoader from "../ui/loading/button-loader";
 import InputError from "../ui/error/input-error";
+import { isValidPhoneNumber } from "libphonenumber-js";
+
 function EditProfile() {
   const router = useRouter();
   const userData = useSelector((state) => state.auth.userData);
@@ -59,7 +61,7 @@ function EditProfile() {
       );
       const row = information?.rows[0];
       setUserInformation(row);
-
+      setProfileImageId(row?.profileImageId);
       // set baseline
       reset({
         fullName: row?.fullName || "",
@@ -76,11 +78,12 @@ function EditProfile() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [submitResult, setSubmitResult] = useState(false);
   const [submitResultMessage, setSubmitResultMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isFIleSubmitLoading, setIsFileSubmitLoading] = useState(false);
+  const [isProfileSubmitLoading, setIsProfileSubmitLoading] = useState(false);
 
   //profile updated profile information
   const onProfileSubmit = async (data) => {
-    setIsLoading(true);
+    setIsProfileSubmitLoading(true);
     try {
       await service.updateProfileInformationPost(userInformation?.$id, {
         ...data,
@@ -90,12 +93,12 @@ function EditProfile() {
       setSubmitResultMessage("Profile information updated successfully");
     } catch (error) {
       setSubmitResult(true);
-      setSubmitResultMessage("Something went wrong");
+      setSubmitResultMessage(error?.message);
     } finally {
-      setIsLoading(false);
+      setIsProfileSubmitLoading(false);
       setTimeout(() => {
         setSubmitResult(false);
-      }, 2000);
+      }, 2500);
     }
 
     // Update baseline after save
@@ -115,17 +118,26 @@ function EditProfile() {
     });
   };
 
+  //profile img url
+  const [profileImgUrl, setProfileImgUrl] = useState(null);
+
+  const [profileImageId, setProfileImageId] = useState(
+    userInformation?.profileImageId,
+  );
+
   //image file handle manually
   const handleFileSelect = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    setIsFileSubmitLoading(true);
     setSelectedFile(file);
     try {
-      const fileUpload = await service.fileUpload(file);
+      const fileUpload = await service.fileUpload(file); //upload new image
       if (fileUpload) {
-        if (userInformation.profileImageId)
-          await service.deleteFile(userInformation.profileImageId);
-
+        if (userInformation.profileImageId) {
+          await service.deleteFile(userInformation.profileImageId); // delete old image
+        }
+        setProfileImageId(fileUpload?.$id);
         await service.updateProfileInformationPost(userInformation.$id, {
           profileImageId: fileUpload?.$id,
         });
@@ -134,26 +146,28 @@ function EditProfile() {
       setSubmitResultMessage("Profile picture updated");
     } catch (error) {
       setSubmitResult(true);
-
-      setSubmitResultMessage(error);
+      setSubmitResultMessage(error?.message); // result in ui
     } finally {
+      setIsFileSubmitLoading(false);
       setTimeout(() => {
         setSubmitResult(false);
-      }, 2000);
+      }, 2500);
     }
 
     setImgPopup(false);
   };
 
-  //profile img url
-  const [profileImgUrl, setProfileImgUrl] = useState(null);
-
-  const profileImageId = userInformation?.profileImageId;
   //getting img url
   useEffect(() => {
-    if (profileImageId)
-      service.fileView(profileImageId).then((url) => setProfileImgUrl(url));
-  }, [userInformation]);
+    const getFileUrlResponse = async () => {
+      if (profileImageId) {
+        await service
+          .fileView(profileImageId)
+          .then((url) => setProfileImgUrl(url));
+      }
+    };
+    getFileUrlResponse();
+  }, [userInformation, profileImageId]);
 
   const [imgPopup, setImgPopup] = useState(false);
   const [resetPopup, setResetPopup] = useState(false);
@@ -220,24 +234,43 @@ function EditProfile() {
                   }
                   alt="profile picture"
                   fill
+                  sizes="80px"
                   className="object-cover h-full w-full"
                 />
               </div>
               <span className="my-auto ml-5">
                 <Button
-                  className="bg-gray-200 text-gray-800"
+                  disabled={isFIleSubmitLoading}
+                  className={`bg-gray-200 text-gray-800 flex justify-center items-center gap-2 ${isFIleSubmitLoading ? "cursor-not-allowed opacity-65" : "cursor-pointer"}`}
                   onClick={openImgPopUp}
                 >
-                  {userInformation?.profileImageId
+                  {/* {userInformation?.profileImageId
                     ? " Change"
-                    : "Add profile picture"}
+                    : "Add profile picture"} */}
+                  {userInformation?.profileImageId ? (
+                    isFIleSubmitLoading ? (
+                      <>
+                        {" "}
+                        <ButtonLoader color="text-black" /> Changing{" "}
+                      </>
+                    ) : (
+                      "Change"
+                    )
+                  ) : isFIleSubmitLoading ? (
+                    <>
+                      {" "}
+                      <ButtonLoader /> Adding profile picture{" "}
+                    </>
+                  ) : (
+                    "Add profile picture"
+                  )}
                 </Button>
               </span>
             </div>
           </div>
 
           <form
-            className="w-full flex flex-col items-center gap-5"
+            className="w-full  flex flex-col items-center gap-5"
             onSubmit={handleSubmit(onProfileSubmit)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && resetPopup) e.preventDefault();
@@ -248,8 +281,8 @@ function EditProfile() {
               {...register("fullName", {
                 required: true,
                 minLength: {
-                  value: 3,
-                  message: "Name must be at least 3 characters long",
+                  value: 2,
+                  message: "Name must be at least 2 characters long",
                 },
                 pattern: {
                   value: /^[A-Za-z\s]+$/,
@@ -268,12 +301,12 @@ function EditProfile() {
               {...register("about", {
                 required: "Please tell us a little about yourself",
                 minLength: {
-                  value: 15,
-                  message: "Your bio should be at least 15 characters",
+                  value: 10,
+                  message: "Your bio should be at least 10 characters",
                 },
                 maxLength: {
-                  value: 255,
-                  message: "Bio cannot exceed 255 characters",
+                  value: 200,
+                  message: "Bio cannot exceed 200 characters",
                 },
               })}
             />
@@ -281,7 +314,7 @@ function EditProfile() {
               <InputError
                 message={
                   errors.about.message ||
-                  "Your bio should be at least 20 characters and less than 255 characters"
+                  "Your bio should be at least 15 characters and less than 200 characters"
                 }
               />
             )}
@@ -312,8 +345,24 @@ function EditProfile() {
                 }
               />
             )}
-            <Input label="Phone Number" {...register("phoneNumber")} />
-
+            <Input
+              label="Phone Number"
+              placeholder={"+CountryCode (e.g. +44...)"}
+              {...register("phoneNumber", {
+                validate: (value) =>
+                  !value ||
+                  isValidPhoneNumber(value) ||
+                  "Please enter a valid international phone number with country code",
+              })}
+            />
+            {errors?.phoneNumber && (
+              <InputError
+                message={
+                  errors?.phoneNumber?.message ||
+                  "International format required. Please start with '+' and your country code"
+                }
+              />
+            )}
             <Input
               label="Email"
               className={"mb-2"}
@@ -322,7 +371,7 @@ function EditProfile() {
                 validate: {
                   matchPattern: (value) =>
                     /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(value) ||
-                    "enter a valid email address",
+                    "Enter a valid email address",
                 },
               })}
             />
@@ -343,10 +392,10 @@ function EditProfile() {
                 </Button>
                 <Button
                   type="submit"
-                  disabled={isLoading}
-                  className={`bg-red-500 text-white flex items-center justify-center gap-2 ${isLoading ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
+                  disabled={isProfileSubmitLoading}
+                  className={`bg-red-500 text-white flex items-center justify-center gap-2 ${isProfileSubmitLoading ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
                 >
-                  {isLoading ? (
+                  {isProfileSubmitLoading ? (
                     <>
                       Updating <ButtonLoader />
                     </>
