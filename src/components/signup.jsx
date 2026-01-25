@@ -73,9 +73,21 @@ function Signup() {
               placeholder={"Enter your full name"}
               {...register("name", {
                 required: true,
+                minLength: {
+                  value: 3,
+                  message: "Name must be at least 3 characters long",
+                },
+                pattern: {
+                  value: /^[A-Za-z\s]+$/,
+                  message: "Name should only contain letters and spaces",
+                },
               })}
             />
-            {errors.name && <InputError message={"Please enter your name"} />}
+            {errors.name && (
+              <InputError
+                message={errors.name.message || "Please enter your name"}
+              />
+            )}
             <Input
               label={"Email:"}
               placeholder={"Enter your email address"}
@@ -91,7 +103,7 @@ function Signup() {
               })}
             />
 
-            {errors.email && <InputError message={"Enter a valid email"} />}
+            {errors.email && <InputError message={"Provide a valid email address"} />}
             <Input
               label={"Password:"}
               placeholder={"Enter password"}
