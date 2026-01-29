@@ -117,7 +117,7 @@ All forms include frontend validation to prevent incorrect input.
 
 <p align="center">
   <img src="screenshots/desktop-profile-page.png" alt="Desktop Profile Page" width="42%">
-  <img src="screenshots/edit-profile-page.png" alt="Desktop Edit Profile Page" width="42%">
+  <img src="screenshots/desktop-edit-profile-page.jpeg" alt="Desktop Edit Profile Page" width="42%">
 </p>
 
 ### 📱 Mobile Views
