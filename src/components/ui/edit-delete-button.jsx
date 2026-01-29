@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { Edit3, Trash2, Loader2 } from "lucide-react";
 import { Popup } from "..";
 import { Button } from "..";
+import { deletePostAction } from "@/app/actions/post/delete-post-action";
 function EditDeleteButton({ post }) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -20,18 +21,11 @@ function EditDeleteButton({ post }) {
     router.push(`/edit-post/${post?.$id}`);
   };
 
-  const handleDeleteClick = () => {
-    setShowPopup(true);
-  };
-
   const confirmDelete = async () => {
     setShowPopup(false);
     setIsDeleting(true);
     try {
-      // First delete the image from Appwrite storage
-      await service.deleteFile(post?.featuredImg);
-      // Then delete the post document
-      await service.deletePost(post?.$id);
+      await deletePostAction(post?.$id, post?.featuredImg);
       router.replace("/");
     } catch (error) {
       throw error;
@@ -55,7 +49,7 @@ function EditDeleteButton({ post }) {
 
         {/* Delete Button */}
         <Button
-          onClick={handleDeleteClick}
+          onClick={() => setShowPopup(true)}
           disabled={isDeleting}
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-red-50 dark:bg-red-500/10 text-red-500 font-bold text-xs sm:text-sm rounded-xl hover:bg-red-500 hover:text-white transition-all active:scale-95 ${isDeleting ? "cursor-not-allowed opacity-70" : "cursor-pointer"}`}
         >
