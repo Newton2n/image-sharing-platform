@@ -1,10 +1,27 @@
 "use server";
-import service from "@/lib/appwrite/config";
+import { createAdminClient } from "@/lib/appwrite/server.config";
+import conf from "@/lib/conf/conf";
+import { revalidatePath } from "next/cache";
+export async function deletePostAction(rowId, featuredImgId) {
+  if (!rowId || !featuredImgId) {
+    return { success: false, error: "Missing required IDs" };
+  }
+  const { tables, storage } = await createAdminClient();
+  try {
+    await storage.deleteFile({
+      bucketId: conf.appwriteBucketId,
+      fileId: featuredImgId,
+    });
 
-export async function deletePostAction(postId = "", featuredImg = "") {
-  // 1. delete storage file
-  await service.deleteFile(featuredImg);
-
-  // 2. delete post
-  await service.deletePost(postId);
+    await tables.deleteRow({
+      databaseId: conf.appwriteDatabaseId,
+      tableId: conf.appwriteTableId,
+      rowId: rowId,
+    });
+    //  Revalidate cache
+    revalidatePath("/");
+    return { success: true };
+  } catch (error) {
+    throw error;
+  }
 }

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import service from "@/lib/appwrite/config";
 import { useSelector } from "react-redux";
 import { Edit3, Trash2, Loader2 } from "lucide-react";
 import { Popup } from "..";

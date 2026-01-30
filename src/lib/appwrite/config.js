@@ -1,6 +1,5 @@
-import { Client, ID, TablesDB, Databases, Storage, Query } from "appwrite";
+import { Client, ID, TablesDB, Storage, Query } from "appwrite";
 import conf from "@/lib/conf/conf";
-
 
 export class Service {
   client = new Client();
@@ -47,21 +46,10 @@ export class Service {
 
       return result;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
-  async deletePost(rowId) {
-    try {
-      const result = await this.tables.deleteRow({
-        databaseId: conf.appwriteDatabaseId,
-        tableId: conf.appwriteTableId,
-        rowId: rowId,
-      });
-      return result;
-    } catch (error) {
-      throw error
-    }
-  }
+
   async getPost(rowId) {
     try {
       const result = await this.tables.getRow({
@@ -72,7 +60,7 @@ export class Service {
 
       return result;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
   async getPosts() {
@@ -84,7 +72,7 @@ export class Service {
 
       return result;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
   async getPostsQuery(id) {
@@ -99,7 +87,7 @@ export class Service {
         return result;
       }
     } catch (error) {
-      throw error
+      throw error;
     }
   }
   async fileUpload(file) {
@@ -112,19 +100,7 @@ export class Service {
 
       return promise;
     } catch (error) {
-      throw error 
-    }
-  }
-  async deleteFile(fileId) {
-    try {
-      const result = await this.storage.deleteFile({
-        bucketId: conf.appwriteBucketId,
-        fileId: fileId,
-      });
-
-      return result;
-    } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -137,7 +113,7 @@ export class Service {
 
       return result;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
   async fileDownload(fileId) {
@@ -154,7 +130,7 @@ export class Service {
         link.click();
       }
     } catch (error) {
-      throw error
+      throw error;
     }
   }
   async createProfileInformationPost({
@@ -167,7 +143,6 @@ export class Service {
     profileImageId,
     coverImageId,
   }) {
-
     try {
       const result = await this.tables.createRow({
         databaseId: conf.appwriteDatabaseId,
@@ -184,10 +159,10 @@ export class Service {
           profileImageId,
         },
       });
-   
+
       return result;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
   async updateProfileInformationPost(
@@ -201,29 +176,31 @@ export class Service {
       about,
       profileImageId,
       coverImageId,
-    }
-  ) {try {
+    },
+  ) {
+    try {
       const result = await this.tables.updateRow({
         databaseId: conf.appwriteDatabaseId,
         tableId: conf.appwriteUsersProfileInformationTableId,
         rowId: rowId,
         data: {
           userId,
-      userName,
-      fullName,
-      email,
-      phoneNumber,
-      about,
-      profileImageId,
-      coverImageId,
+          userName,
+          fullName,
+          email,
+          phoneNumber,
+          about,
+          profileImageId,
+          coverImageId,
         },
       });
 
       return result;
     } catch (error) {
-      throw error
-    }}
-   async getProfileInformationQuery(id) {
+      throw error;
+    }
+  }
+  async getProfileInformationQuery(id) {
     const columnName = "userId";
     try {
       if (id) {
@@ -235,7 +212,7 @@ export class Service {
         return result;
       }
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 }
