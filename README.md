@@ -37,37 +37,53 @@ Install dependencies
 
 npm install
 
-🔧 Set Up Appwrite
+🤖Set Up Appwrite
 
-Visit your Appwrite console and create a new project.
+Visit your Appwrite Console and create a new project.
 
-Enable Email/Password Auth.
+Auth: Enable Email/Password authentication.
 
-Create:
+Database: Create a database named post.
 
-A Database
+Collections: Create two collections:
 
-Collections (e.g., users, images)
+usersPost (for storing post data)
 
-A Storage bucket
+usersProfile (for user metadata)
 
-🔑 Environment Variables
+Storage: Create a Bucket for images.
 
+🔑 Appwrite API Key Configuration
+Create a new API Key in your Appwrite Console (Integration > API Keys) and select the following scopes:
+
+Databases:
+
+row.read (Read rows)
+row.write (Create, update, and delete rows)
+
+Storage:
+
+files.read (Read files and previews)
+files.write (Create, update, and delete files)
+.
 Create a .env.local file in the root and add:
+# Appwrite Public Config (Client-side)
+NEXT_PUBLIC_APPWRITE_URL="" ,
 
-NEXT_PUBLIC_APPWRITE_ENDPOINT= ,
+NEXT_PUBLIC_APPWRITE_PROJECT_ID="" ,
 
-NEXT_PUBLIC_APPWRITE_PROJECT_ID= ,
+NEXT_PUBLIC_APPWRITE_DATABASE_ID="" ,
 
-APPWRITE_DATABASE_ID= ,
+NEXT_PUBLIC_APPWRITE_TABLE_ID="" ,
 
-APPWRITE_IMAGE_COLLECTION_ID= ,
+NEXT_PUBLIC_APPWRITE_USERS_PROFILE_INFORMATION_TABLE_ID="" ,
 
-APPWRITE_USERS_COLLECTION_ID= ,
+# Appwrite Secret Key (Server-side Only)
+# WARNING: Do not prefix this with NEXT_PUBLIC_
+NEXT_PUBLIC_APPWRITE_BUCKET_ID="" ,
 
-APPWRITE_BUCKET_ID= ,
-
-NEXT_PUBLIC_TINYMCE_API_KEY=
+# Editor Config
+NEXT_PUBLIC_TINYMCE_API_KEY="";
 
 💡 TinyMCE API Key
 
