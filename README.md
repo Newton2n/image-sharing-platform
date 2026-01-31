@@ -66,7 +66,9 @@ Storage:
 files.read (Read files and previews)
 files.write (Create, update, and delete files)
 .
-Create a .env.local file in the root and add:
+
+🤫🙈
+# Create a .env.local file in the root and add:
 # Appwrite Public Config (Client-side)
 NEXT_PUBLIC_APPWRITE_URL="" ,
 
