@@ -6,12 +6,15 @@ import PostTitle from "@/components/ui/post-title";
 import { ImageDownloadBtn } from "@/components";
 import { ShieldCheck } from "lucide-react";
 import PostContent from "@/components/ui/post-content";
-
+import { redirect } from "next/navigation";
 export default async function Page({ params }) {
   const { postId } = await params;
 
-  const post = await service.getPost(postId);
-  const imgUrl = await service.fileView(post.featuredImg);
+
+  const post = await service.getPost(postId).catch((err) => redirect("/"));
+  const imgUrl = await service
+    .fileView(post?.featuredImg)
+    .catch((err) => redirect("/"));
 
   if (!post) return null;
 

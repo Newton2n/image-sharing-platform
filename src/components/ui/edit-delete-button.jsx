@@ -5,14 +5,14 @@ import { useSelector } from "react-redux";
 import { Edit3, Trash2, Loader2 } from "lucide-react";
 import { Popup } from "..";
 import { Button } from "..";
-import { deletePostAction } from "@/app/actions/post/delete-post-action";
+import { deletePostCompleteAction } from "@/app/actions/post/delete-post-complete-action";
 function EditDeleteButton({ post }) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
   const userData = useSelector((state) => state.auth.userData);
-  const isAuthor = post && userData ? post?.userId === userData?.$id : false;
+  const isAuthor = post && userData ? post?.userId === userData?.$id : false; //confirming Author
 
   if (!isAuthor) return null;
 
@@ -23,11 +23,17 @@ function EditDeleteButton({ post }) {
   const confirmDelete = async () => {
     setShowPopup(false);
     setIsDeleting(true);
+
+    //return when no required ids
+    if (!post?.$id || !post?.featuredImg) {
+      return { success: false, error: "Missing required IDs" };
+    }
+
     try {
-      await deletePostAction(post?.$id, post?.featuredImg);
-      router.replace("/");
+      //delete row and image file
+      await deletePostCompleteAction(post?.$id, post?.featuredImg);
     } catch (error) {
-      throw error;
+      return { success: false, error: error.message };
     } finally {
       setIsDeleting(false);
     }
