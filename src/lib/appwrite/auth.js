@@ -35,7 +35,8 @@ export class AuthService {
         email: email,
         password: password,
       });
-
+      const sessionId = session.secret;
+      console.log("session id in auth",sessionId);
       return session;
     } catch (error) {
       throw error;

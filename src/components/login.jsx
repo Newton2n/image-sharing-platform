@@ -31,10 +31,10 @@ function Login() {
     setIsLoading(true);
     try {
       const session = await authservice.login(data);
-
+     console.log("session id",session.secret)
       if (session) {
         const userData = await authservice.getCurrentUser();
-
+         console.log(userData)
         if (userData) {
           dispatch(authLogin(userData));
           router.replace("/");

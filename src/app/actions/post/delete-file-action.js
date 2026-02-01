@@ -1,21 +1,21 @@
 "use server";
-import { createAdminClient } from "@/lib/appwrite/server.config";
+import * as sdk from "node-appwrite";
 import conf from "@/lib/conf/conf";
 import { revalidatePath } from "next/cache";
+const client = new sdk.Client()
+  .setEndpoint(conf.appwriteUrl) //  API Endpoint
+  .setProject(conf.appwriteProjectId) // project ID
+  .setKey(process.env.APPWRITE_API_KEY); //secret api key
+
+const storage = new sdk.Storage(client);
 export async function deleteFileAction(featuredImg) {
-  if (!featuredImg) {
-    return { success: false, error: "Missing required IDs" };
-  }
-  const { storage } = await createAdminClient();
-  try {
-    await storage.deleteFile({
-      bucketId: conf.appwriteBucketId,
-      fileId: featuredImg,
-    });
-    //  Revalidate cache
-    revalidatePath("/");
-    return { success: true };
-  } catch (error) {
-    return { success: false, error: error.message };
+  if (featuredImg) {
+    try {
+      await storage.deleteFile(conf.appwriteBucketId, featuredImg);
+      revalidatePath("/");
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
   }
 }

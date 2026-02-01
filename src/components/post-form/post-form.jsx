@@ -59,8 +59,10 @@ export default function PostForm({ post }) {
             featuredImg: upLoadFile?.$id,
           });
           if (updatePost) {
-            await deleteFileAction(post?.featuredImg);
-            router.push(`/post/${updatePost.$id}`);
+            const res = await deleteFileAction(post?.featuredImg);
+            if (res.success) {
+              router.replace(`/post/${updatePost.$id}`);
+            }
           }
         } else {
           // update post without new Image
