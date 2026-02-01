@@ -60,6 +60,7 @@ export default function PostForm({ post }) {
           });
           if (updatePost) {
             const res = await deleteFileAction(post?.featuredImg);
+            //go to new edit post if success res
             if (res.success) {
               router.replace(`/post/${updatePost.$id}`);
             }
