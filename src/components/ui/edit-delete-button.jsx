@@ -33,11 +33,11 @@ function EditDeleteButton({ post }) {
     try {
       //delete row and image file
       if (!post) return;
-      const deleteFileRes = await service.deleteFile(post?.featuredImg);
-      const deleteRowRes = await service.deletePost(post?.$id);
-      Promise.all([deleteFileRes, deleteRowRes]).then((res) =>
-        router.replace("/"),
-      );
+
+      Promise.all([
+        await service.deleteFile(post?.featuredImg),
+        await service.deletePost(post?.$id),
+      ]).then((res) => router.replace("/"));
     } catch (error) {
       return { success: false, error: error.message };
     } finally {
