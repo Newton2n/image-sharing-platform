@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import { Edit3, Trash2, Loader2 } from "lucide-react";
 import { Popup } from "..";
 import { Button } from "..";
-import { deletePostCompleteAction } from "@/app/actions/post/delete-post-complete-action";
+import service from "@/lib/appwrite/config";
+
 function EditDeleteButton({ post }) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -31,7 +32,12 @@ function EditDeleteButton({ post }) {
 
     try {
       //delete row and image file
-      await deletePostCompleteAction(post?.$id, post?.featuredImg);
+      if (!post) return;
+
+      Promise.all([
+        await service.deleteFile(post?.featuredImg),
+        await service.deletePost(post?.$id),
+      ]).then((res) => router.replace("/"));
     } catch (error) {
       return { success: false, error: error.message };
     } finally {

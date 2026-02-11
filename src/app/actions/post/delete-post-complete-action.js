@@ -17,10 +17,7 @@ export async function deletePostCompleteAction(rowId, featuredImg) {
   // 1. Delete file if it exists
   if (featuredImg) {
     try {
-      await storage.deleteFile({
-        bucketId: conf.appwriteBucketId,
-        fileId: featuredImg,
-      });
+      await storage.deleteFile(conf.appwriteBucketId, featuredImg);
     } catch (err) {
       if (err.code !== 404) throw err; // ignore file not found
     }

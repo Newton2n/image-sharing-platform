@@ -11,7 +11,6 @@ import Image from "next/image";
 import AuthLoading from "../ui/loading/auth-loading";
 import ButtonLoader from "../ui/loading/button-loader";
 import InputError from "../ui/error/input-error";
-import { deleteFileAction } from "@/app/actions/post/delete-file-action";
 export default function PostForm({ post }) {
   const router = useRouter();
   const userData = useSelector((data) => data.auth.userData);
@@ -59,9 +58,9 @@ export default function PostForm({ post }) {
             featuredImg: upLoadFile?.$id,
           });
           if (updatePost) {
-            const res = await deleteFileAction(post?.featuredImg);
+            const res = await service.deleteFile(post?.featuredImg);
             //go to new edit post if success res
-            if (res.success) {
+            if (res) {
               router.replace(`/post/${updatePost.$id}`);
             }
           }
