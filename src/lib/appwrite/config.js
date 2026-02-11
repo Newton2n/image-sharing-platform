@@ -31,6 +31,30 @@ export class Service {
       throw error;
     }
   }
+  async deletePost(rowId) {
+    try {
+      const result = await this.tables.deleteRow({
+        databaseId: conf.appwriteDatabaseId,
+        tableId: conf.appwriteTableId,
+        rowId: rowId,
+      });
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async deleteFile(fileId) {
+    try {
+      const result = await this.storage.deleteFile({
+        bucketId: conf.appwriteBucketId,
+        fileId: fileId,
+      });
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
   async updatePost(rowId, { title, content, featuredImg }) {
     try {
       const result = await this.tables.updateRow({
