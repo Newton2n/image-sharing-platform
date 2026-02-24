@@ -1,6 +1,10 @@
 import { Container, PostCard } from "@/components/index";
 import AuthorPicture from "@/components/ui/author-picture";
 import service from "@/lib/appwrite/config";
+
+// revalidate page after 60 sec
+export const revalidate = 60;
+
 export const metadata = {
   title: "Home",
   description: "Explore Images from the world",
