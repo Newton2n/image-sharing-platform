@@ -17,7 +17,7 @@ This isn’t a basic example project. The app includes:
 ✔ Authenticated routes protected by Appwrite
 ✔ Uploading, editing, deleting images (CRUD)
 ✔ Real‑time display of images in a public feed
-✔ Profile pages and user controls
+✔ Profile pages and user controls 
 ✔ Frontend validation on all forms
 ✔ Responsive UI with modern design
 
