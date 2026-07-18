@@ -25,6 +25,25 @@ This project is open source and extendable — perfect for learning or building 
 
 🧰 Tech Stack
 <p align="center"> <img src="https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" /> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" /> <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /> <img src="https://img.shields.io/badge/Appwrite-%23FD366E?style=for-the-badge&logo=appwrite&logoColor=white" alt="Appwrite" /> <img src="https://img.shields.io/badge/Vercel-black?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" /> <img src="https://img.shields.io/badge/TinyMCE-4040FF?style=for-the-badge&logo=tinymce&logoColor=white" alt="TinyMCE" /> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" /> </p>
+
+---
+---
+
+### 📦 Key Dependencies
+
+This project leverages the following modern libraries:
+
+| Category | Packages |
+| :--- | :--- |
+| **Framework** | `next`, `react`, `react-dom` |
+| **State Management** | `@reduxjs/toolkit`, `react-redux` |
+| **Backend/DB** | `appwrite`, `node-appwrite` |
+| **Forms & Validation** | `react-hook-form`, `libphonenumber-js` |
+| **Editor** | `@tinymce/tinymce-react`, `tinymce`, `dompurify` |
+| **UI & Styling** | `tailwindcss`, `lucide-react`, `lenis` |
+
+---
+
 🛠 Installation
 
 Clone the repository
@@ -70,6 +89,7 @@ files.write (Create, update, and delete files)
 🤫🙈
 # Create a .env.local file in the root and add:
 # Appwrite Public Config (Client-side)
+```
 NEXT_PUBLIC_APPWRITE_URL="" ,
 
 NEXT_PUBLIC_APPWRITE_PROJECT_ID="" ,
@@ -86,7 +106,7 @@ NEXT_PUBLIC_APPWRITE_BUCKET_ID="" ,
 
 # Editor Config
 NEXT_PUBLIC_TINYMCE_API_KEY="";
-
+```
 💡 TinyMCE API Key
 
 To integrate TinyMCE as your rich text editor, you need a Tiny Cloud API key:
